@@ -1,0 +1,387 @@
+---
+title: "Random Variable and Distribution"
+author: "Yi-Ju Tseng @NYCU"
+format: 
+  revealjs:
+    slide-number: c/t
+editor: visual
+---
+
+# Import Packages
+
+## Import packages/libraries
+
+We will use the following packages in python.
+
+-   `statistics`
+-   `pandas`
+-   `scipy`
+-   `seaborn`
+-   `numpy`
+
+```{python}
+#| echo: true
+import statistics as st
+import pandas as pd
+import seaborn as sns
+import numpy as np
+from scipy import stats
+```
+
+# Normal Distribution - Continuous Random Variables
+
+## Probability (area under the pdf)
+
+![](fig/pdf.png)
+
+**statistic** (as `st`) package's function:
+
+`NormalDist(mu=μ, sigma=σ).cdf(x)`
+
+```{python}
+#| echo: true
+st.NormalDist(mu=0, sigma=1).cdf(1.4)
+```
+
+```{python}
+#| echo: true
+st.NormalDist().cdf(1.4)
+```
+
+## Probability (area under the pdf)
+
+![](fig/pdf.png)
+
+```{python}
+#| echo: true
+st.NormalDist(mu=0.2508, sigma=0.0005).cdf(0.2485)
+```
+
+```{python}
+#| echo: true
+st.NormalDist(mu=0.2508, sigma=0.0005).cdf(0.2515)
+```
+
+## Quiz 3-3
+
+You work in Quality Control for GE.
+
+Light bulb life has a normal distribution with μ = 2000 hours and σ = 200 hours.
+
+What's the probability that a bulb will last
+
+A. between 2000 and 2400 hours?
+
+![](fig/3-3-1.png)
+
+```{python}
+#| echo: true
+#| code-overflow: scroll
+st.NormalDist(mu=2000, sigma=200).cdf(2400)\
+  -st.NormalDist(mu=2000, sigma=200).cdf(2000)
+```
+
+## Quiz 3-3
+
+You work in Quality Control for GE.
+
+Light bulb life has a normal distribution with μ = 2000 hours and σ = 200 hours.
+
+What's the probability that a bulb will last
+
+B. less than 1470 hours?
+
+![](fig/3-3-2.png)
+
+```{python}
+#| echo: true
+st.NormalDist(mu=2000, sigma=200).cdf(1470)
+```
+
+## Finding z-Values for Known Probabilities
+
+**statistic** (as `st`) package's function
+
+`NormalDist(mu=μ, sigma=σ).inv_cdf(p-value)`
+
+![](fig/p-value.png)
+
+```{python}
+#| echo: true
+st.NormalDist().inv_cdf(0.1217+0.5)
+```
+
+## Quiz 3-4
+
+For a particular generation of the tomato plant, the amount x of miraculin produced had a mean of 105.3 and a standard deviation of 8.0. Assume that x is normally distributed.
+
+1.  Find P(100 \< x \< 110)
+
+![](fig/3-4-1.png)
+
+```{python}
+#| echo: true
+st.NormalDist(mu=105.3, sigma=8).cdf(110)-\
+st.NormalDist(mu=105.3, sigma=8).cdf(100)
+```
+
+## Quiz 3-4
+
+For a particular generation of the tomato plant, the amount x of miraculin produced had a mean of 105.3 and a standard deviation of 8.0. Assume that x is normally distributed.
+
+2.  Find the value a for which P(x \< a) = 0.25
+
+![](fig/3-4-2.png)
+
+```{python}
+#| echo: true
+st.NormalDist(mu=105.3, sigma=8).inv_cdf(0.25)
+```
+
+# Is Normal Distribution a Reasonable Model?
+
+## Normal Probability Plots - load data
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+## Normal Probability Plots - Histogram
+
+**seaborn** package's 
+
+`histplot(data=your data frame,x=x axis)`
+```{python}
+#| echo: true
+sns.histplot(data=data,x='weight')
+```
+## Normal Probability Plots - PP
+
+With **scipy** package's `stats`, we can use function `probplot(data, plot=sns.mpl.pyplot)` to draw **Probability Plots**
+```{python}
+sns.mpl.pyplot.clf()
+```
+```{python}
+#| echo: true
+stats.probplot(data['weight'], plot=sns.mpl.pyplot)
+sns.mpl.pyplot.show()
+```
+
+## Normal Probability Plots - Histogram
+
+**numpy**'s function `random.normal` can be used to generate data with normal distribution
+
+```{python}
+#| echo: true
+standard_norm = np.random.normal(size=3000)
+sns.histplot(standard_norm)
+```
+## Normal Probability Plots - PP
+With **scipy** package's `stats`, we can use function `probplot(data, plot=sns.mpl.pyplot)` to draw **Probability Plots**
+```{python}
+sns.mpl.pyplot.clf()
+```
+```{python}
+#| echo: true
+stats.probplot(standard_norm,plot=sns.mpl.pyplot)
+sns.mpl.pyplot.show()
+```
+
+## Normal Probability Plots - Histogram
+
+With **scipy** package's `stats`, we can use function `skewnorm.rvs()` to generate skewed data
+
+```{python}
+#| echo: true
+skewed_norm = stats.skewnorm.rvs(a=10, size=3000)
+sns.histplot(skewed_norm)
+```
+## Normal Probability Plots - PP
+```{python}
+sns.mpl.pyplot.clf()
+```
+```{python}
+#| echo: true
+stats.probplot(skewed_norm,plot=sns.mpl.pyplot)
+sns.mpl.pyplot.show()
+```
+
+## Statistic Test for Normal Distribution
+
+With `scipy` package's `stats`, the following functions can be used: 
+
+- Shapiro-Wilk Test 
+    - May not be accurate for N \> 5000 
+    - If the p-value \> .05, then the data is assumed to be normally distributed. 
+- Kolmogorov-Smirnov Test 
+    - If the p-value \> .05, then the data is assumed to be normally distributed.
+
+## Statistic Test for Normal Distribution
+
+With **scipy** package's `stats`, the following functions can be used: 
+
+- Shapiro-Wilk Test `shapiro(data)` 
+- Kolmogorov-Smirnov Test `kstest(data, distribution, args=(mean,sd))`
+
+```{python}
+#| echo: true
+stats.shapiro(standard_norm)
+```
+```{python}
+#| echo: true
+stats.shapiro(skewed_norm)
+```
+
+## Statistic Test for Normal Distribution
+
+With **scipy** package's `stats`, the following functions can be used: 
+
+- Shapiro-Wilk Test `shapiro(data)` 
+- Kolmogorov-Smirnov Test `kstest(data, distribution, args=(mean,sd))`
+```{python}
+#| echo: true
+stats.kstest(standard_norm, 'norm',\
+args=(standard_norm.mean(),standard_norm.std()))
+```
+
+```{python}
+#| echo: true
+stats.kstest(skewed_norm, 'norm',\
+args=(skewed_norm.mean(),skewed_norm.std()))
+```
+
+# Binomial Distribution - Discrete Random Variables
+
+## Probability (sum of the pmf)
+
+![](fig/bd.png)
+
+With **scipy** package's `stats`:
+
+`binom.pmf(x, n, p)`
+
+```{python}
+#| echo: true
+stats.binom.pmf(3, 5, 0.5)
+```
+
+## Probability (sum of the pmf)
+
+![](fig/bd2.png)
+
+```{python}
+#| echo: true
+stats.binom.pmf(0, 12, 0.2)+\
+stats.binom.pmf(1, 12, 0.2)+\
+stats.binom.pmf(2, 12, 0.2)
+```
+
+```{python}
+#| echo: true
+stats.binom.pmf([0,1,2], 12, 0.2)
+```
+
+```{python}
+#| echo: true
+sum(stats.binom.pmf([0,1,2], 12, 0.2))
+```
+
+## Quiz 3-6
+
+The study found that when presented with prints from the same individual, a fingerprint expert will correctly identify the match 92% of the time. 
+
+a. What is the probability that an expert will correctly identify the match in all five pairs of fingerprints?
+
+
+![](fig/3-6-1.png)
+
+```{python}
+#| echo: true
+stats.binom.pmf(5, 5, 0.92)
+```
+
+## Quiz 3-6
+
+In contrast, a novice will correctly identify the match 75% of the time. Consider a sample of five different pairs of fingerprints, where each pair is a match.
+
+b. What is the probability that a novice will correctly identify the match in all five pairs of fingerprints?
+
+![](fig/3-6-2.png)
+
+```{python}
+#| echo: true
+stats.binom.pmf(5, 5, 0.75)
+```
+
+
+# Poisson Distribution - Discrete Random Variables
+
+## Probability (sum of the pmf)
+
+![](fig/pd.png)
+
+With **scipy** package's `stats`:
+
+`poisson.pmf(k=x, mu=λ)`
+
+```{python}
+#| echo: true
+stats.poisson.pmf(4, 3.6)
+```
+
+
+## Quiz 3-8
+
+You work in Quality Assurance for an investment firm.
+A clerk enters 75 words per minute with 6 errors per hour.
+
+![](fig/3-8.png)
+
+```{python}
+#| echo: true
+stats.poisson.pmf(0, 0.34)
+```
+
+
+
+# Exponential Distribution - Continuous Random Variables
+
+## Probability (area under the pdf)
+
+![](fig/ed.png)
+
+With **scipy** package's `stats`:
+
+`expon.cdf(x, scale=θ)`
+
+```{python}
+#| echo: true
+1-stats.expon.cdf(x=5,scale=2)
+```
+
+
+## Quiz 3-9
+
+the length of life of a magnetron tube has an exponential probability distribution with θ = 6.25.
+
+Suppose a warranty period of 5 years is attached to the magnetron tube. What fraction of tubes must the manufacturer plan to replace?
+
+![](fig/3-9.png)
+
+```{python}
+#| echo: true
+stats.expon.cdf(x=5,scale=6.25)
+```
+## Summary
+
+- Normal Distribution 
+  - `NormalDist(mu=μ, sigma=σ).cdf(x)`
+  - Probability Plot
+  - Statistic Test
+- Binomial Distribution `binom.pmf(x, n, p)`
+- Poisson Distribution `poisson.pmf(k=x, mu=λ)`
+- Exponential Distribution `expon.cdf(x, scale=θ)`

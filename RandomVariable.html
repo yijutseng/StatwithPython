@@ -1,21 +1,21 @@
 <!DOCTYPE html>
 <html lang="en"><head>
-<script src="Descriptive_files/libs/clipboard/clipboard.min.js"></script>
-<script src="Descriptive_files/libs/quarto-html/tabby.min.js"></script>
-<script src="Descriptive_files/libs/quarto-html/popper.min.js"></script>
-<script src="Descriptive_files/libs/quarto-html/tippy.umd.min.js"></script>
-<link href="Descriptive_files/libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="Descriptive_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
-<link href="Descriptive_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
+<script src="RandomVariable_files/libs/clipboard/clipboard.min.js"></script>
+<script src="RandomVariable_files/libs/quarto-html/tabby.min.js"></script>
+<script src="RandomVariable_files/libs/quarto-html/popper.min.js"></script>
+<script src="RandomVariable_files/libs/quarto-html/tippy.umd.min.js"></script>
+<link href="RandomVariable_files/libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="RandomVariable_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
+<link href="RandomVariable_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
   <meta name="generator" content="quarto-1.2.269">
 
   <meta name="author" content="Yi-Ju Tseng @NYCU">
-  <title>Descriptive Analysis with Python</title>
+  <title>Random Variable and Distribution</title>
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, minimal-ui">
-  <link rel="stylesheet" href="Descriptive_files/libs/revealjs/dist/reset.css">
-  <link rel="stylesheet" href="Descriptive_files/libs/revealjs/dist/reveal.css">
+  <link rel="stylesheet" href="RandomVariable_files/libs/revealjs/dist/reset.css">
+  <link rel="stylesheet" href="RandomVariable_files/libs/revealjs/dist/reveal.css">
   <style>
     code{white-space: pre-wrap;}
     span.smallcaps{font-variant: small-caps;}
@@ -93,11 +93,11 @@
     code span.vs { color: #20794d; } /* VerbatimString */
     code span.wa { color: #5e5e5e; font-style: italic; } /* Warning */
   </style>
-  <link rel="stylesheet" href="Descriptive_files/libs/revealjs/dist/theme/quarto.css" id="theme">
-  <link href="Descriptive_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
-  <link href="Descriptive_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
-  <link href="Descriptive_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
-  <link href="Descriptive_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
+  <link rel="stylesheet" href="RandomVariable_files/libs/revealjs/dist/theme/quarto.css" id="theme">
+  <link href="RandomVariable_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.css" rel="stylesheet">
+  <link href="RandomVariable_files/libs/revealjs/plugin/reveal-menu/menu.css" rel="stylesheet">
+  <link href="RandomVariable_files/libs/revealjs/plugin/reveal-menu/quarto-menu.css" rel="stylesheet">
+  <link href="RandomVariable_files/libs/revealjs/plugin/quarto-support/footer.css" rel="stylesheet">
   <style type="text/css">
 
   .callout {
@@ -306,7 +306,6 @@
     }
     .reveal .slide:not(.center) {
       height: 100%;
-      overflow-y: auto;
     }
     .reveal .slide.scrollable {
       overflow-y: auto;
@@ -392,7 +391,7 @@
     <div class="slides">
 
 <section id="title-slide" class="quarto-title-block center">
-  <h1 class="title">Descriptive Analysis with Python</h1>
+  <h1 class="title">Random Variable and Distribution</h1>
 
 <div class="quarto-title-authors">
 <div class="quarto-title-author">
@@ -404,95 +403,149 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 </section>
 <section>
-<section id="basic-setup" class="title-slide slide level1 center">
-<h1>Basic Setup</h1>
-
-</section>
-<section id="python-installation" class="slide level2">
-<h2>Python installation</h2>
-<p>You can install python in different way. For someone who are not familiar with python, feel free to follow these steps:</p>
-<ul>
-<li>Download python @ <a href="https://www.python.org/downloads/" class="uri">https://www.python.org/downloads/</a></li>
-<li>Install it by double click the installer</li>
-<li>Check if the installation success by typing <code>python3</code> in <strong>CMD</strong> (Windows) or <strong>terminal</strong> (Mac or Linux)</li>
-</ul>
-
-<img data-src="fig/checkjupyter.png" class="r-stretch"></section>
-<section id="packageslibraries-installation" class="slide level2">
-<h2>Packages/libraries installation</h2>
-<p>In <strong>CMD</strong> (Windows) or <strong>terminal</strong> (Mac or Linux), type</p>
-<pre><code>pip3 install pandas jupyter seaborn</code></pre>
-<p>to install packages</p>
-<p>Of course you can use <strong>conda</strong> or other method to install packages</p>
-</section>
-<section id="setup-an-ide-for-data-analysis" class="slide level2">
-<h2>Setup an IDE for data analysis</h2>
-<ul>
-<li>If you are not familiar with python IDE, I recommend you to use <strong>VS Code</strong> with <strong>Jupyter notebook</strong>.</li>
-<li><a href="https://jupyter.org/">Jupyter notebook</a> is a really good python interface for data analysis (of course including statistic).</li>
-<li>You can install and using <strong>Jupyter notebook</strong> in different ways.
-<ul>
-<li>We have installed <code>jupyter</code> library in the previous step</li>
-</ul></li>
-<li>Check the <a href="https://code.visualstudio.com/docs/datascience/jupyter-notebooks">document</a> for more instruction</li>
-</ul>
-</section>
-<section id="download-and-install-vs-code" class="slide level2">
-<h2>1. Download and install <a href="https://code.visualstudio.com/">VS Code</a></h2>
-<p><a href="https://code.visualstudio.com/">VS Code</a> <img data-src="fig/vscode_down.png"></p>
-</section>
-<section id="check-python-and-jupyter-package" class="slide level2">
-<h2>2. Check python and jupyter package</h2>
-<p>Make sure you have installed <code>python</code> and <code>jupyter</code> package (see previous slide)</p>
-<p>@ Terminal or CMD or Python</p>
-
-<img data-src="fig/checkjupyter.png" class="r-stretch"></section>
-<section id="install-python-extension" class="slide level2">
-<h2>3. Install Python extension</h2>
-<p>In VS Code, click <strong>Extensions</strong>, search python, and install the extension</p>
-<p><img data-src="fig/pthext.png"> <strong>Jupyter</strong> extension is also useful</p>
-</section>
-<section id="trust-your-workspace" class="slide level2">
-<h2>4. Trust your <a href="https://code.visualstudio.com/docs/editor/workspace-trust">workspace</a></h2>
-<p>Click <strong>trust</strong> and add the folder with codes in the trust <a href="https://code.visualstudio.com/docs/editor/workspace-trust">workspace</a></p>
-
-<img data-src="fig/rest.png" class="r-stretch"></section>
-<section id="create-a-jupyter-notebook" class="slide level2">
-<h2>5. Create a Jupyter Notebook</h2>
-<ul>
-<li>by running the <strong>Create: New Jupyter Notebook</strong> command from the Command Palette (⇧⌘P)</li>
-<li>by creating a new <strong>.ipynb</strong> file in your workspace</li>
-</ul>
-
-<img data-src="fig/newfile.png" class="r-stretch"></section>
-<section id="now-we-are-ready-to-start" class="slide level2">
-<h2>6. Now we are ready to start!</h2>
-
-<img data-src="fig/jp.png" class="r-stretch"></section></section>
-<section>
-<section id="import-packages-and-data" class="title-slide slide level1 center">
-<h1>Import Packages and Data</h1>
+<section id="import-packages" class="title-slide slide level1 center">
+<h1>Import Packages</h1>
 
 </section>
 <section id="import-packageslibraries" class="slide level2">
 <h2>Import packages/libraries</h2>
-<p>We will use the following packages in python for descriptive analysis.</p>
+<p>We will use the following packages in python.</p>
 <ul>
 <li><code>statistics</code></li>
 <li><code>pandas</code></li>
+<li><code>scipy</code></li>
+<li><code>seaborn</code></li>
+<li><code>numpy</code></li>
 </ul>
 <div class="cell" data-execution_count="1">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a><span class="im">import</span> statistics <span class="im">as</span> st</span>
-<span id="cb2-2"><a href="#cb2-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a><span class="im">import</span> statistics <span class="im">as</span> st</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section></section>
+<section>
+<section id="normal-distribution---continuous-random-variables" class="title-slide slide level1 center">
+<h1>Normal Distribution - Continuous Random Variables</h1>
+
+</section>
+<section id="probability-area-under-the-pdf" class="slide level2">
+<h2>Probability (area under the pdf)</h2>
+
+<img data-src="fig/pdf.png" class="r-stretch"><p><strong>statistic</strong> (as <code>st</code>) package’s function:</p>
+<p><code>NormalDist(mu=μ, sigma=σ).cdf(x)</code></p>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>).cdf(<span class="fl">1.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="2">
+<pre><code>0.9192433407662289</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>st.NormalDist().cdf(<span class="fl">1.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="3">
+<pre><code>0.9192433407662289</code></pre>
+</div>
 </div>
 </section>
-<section id="data-import" class="slide level2">
-<h2>Data import</h2>
+<section id="probability-area-under-the-pdf-1" class="slide level2">
+<h2>Probability (area under the pdf)</h2>
+
+<img data-src="fig/pdf.png" class="r-stretch"><div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">0.2508</span>, sigma<span class="op">=</span><span class="fl">0.0005</span>).cdf(<span class="fl">0.2485</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="4">
+<pre><code>2.1124547024964357e-06</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">0.2508</span>, sigma<span class="op">=</span><span class="fl">0.0005</span>).cdf(<span class="fl">0.2515</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="5">
+<pre><code>0.9192433407662224</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-3" class="slide level2">
+<h2>Quiz 3-3</h2>
+<p>You work in Quality Control for GE.</p>
+<p>Light bulb life has a normal distribution with μ = 2000 hours and σ = 200 hours.</p>
+<p>What’s the probability that a bulb will last</p>
+<p>A. between 2000 and 2400 hours?</p>
+
+<img data-src="fig/3-3-1.png" class="r-stretch"><div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python code-overflow-scroll number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">2400</span>)<span class="op">\</span></span>
+<span id="cb10-2"><a href="#cb10-2"></a>  <span class="op">-</span>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>0.4772498680518208</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-3-1" class="slide level2">
+<h2>Quiz 3-3</h2>
+<p>You work in Quality Control for GE.</p>
+<p>Light bulb life has a normal distribution with μ = 2000 hours and σ = 200 hours.</p>
+<p>What’s the probability that a bulb will last</p>
+<p>B. less than 1470 hours?</p>
+
+<img data-src="fig/3-3-2.png" class="r-stretch"><div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">1470</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="7">
+<pre><code>0.004024588542758334</code></pre>
+</div>
+</div>
+</section>
+<section id="finding-z-values-for-known-probabilities" class="slide level2">
+<h2>Finding z-Values for Known Probabilities</h2>
+<p><strong>statistic</strong> (as <code>st</code>) package’s function</p>
+<p><code>NormalDist(mu=μ, sigma=σ).inv_cdf(p-value)</code></p>
+
+<img data-src="fig/p-value.png" class="r-stretch"><div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>st.NormalDist().inv_cdf(<span class="fl">0.1217</span><span class="op">+</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="8">
+<pre><code>0.30994865777600955</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-4" class="slide level2">
+<h2>Quiz 3-4</h2>
+<p>For a particular generation of the tomato plant, the amount x of miraculin produced had a mean of 105.3 and a standard deviation of 8.0. Assume that x is normally distributed.</p>
+<ol type="1">
+<li>Find P(100 &lt; x &lt; 110)</li>
+</ol>
+
+<img data-src="fig/3-4-1.png" class="r-stretch"><div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).cdf(<span class="dv">110</span>)<span class="op">-\</span></span>
+<span id="cb16-2"><a href="#cb16-2"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).cdf(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="9">
+<pre><code>0.4677406073541885</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-4-1" class="slide level2">
+<h2>Quiz 3-4</h2>
+<p>For a particular generation of the tomato plant, the amount x of miraculin produced had a mean of 105.3 and a standard deviation of 8.0. Assume that x is normally distributed.</p>
+<ol start="2" type="1">
+<li>Find the value a for which P(x &lt; a) = 0.25</li>
+</ol>
+
+<img data-src="fig/3-4-2.png" class="r-stretch"><div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).inv_cdf(<span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="10">
+<pre><code>99.90408199843134</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="is-normal-distribution-a-reasonable-model" class="title-slide slide level1 center">
+<h1>Is Normal Distribution a Reasonable Model?</h1>
+
+</section>
+<section id="normal-probability-plots---load-data" class="slide level2">
+<h2>Normal Probability Plots - load data</h2>
 <p>Import data and analyze with python using <strong>pandas</strong>. <code>pd.read_csv("file path + name")</code></p>
-<div class="cell" data-execution_count="2">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"baseball_data.csv"</span>)</span>
-<span id="cb3-2"><a href="#cb3-2"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"baseball_data.csv"</span>)</span>
+<span id="cb20-2"><a href="#cb20-2"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
 
 <div>
 <style scoped="">
@@ -626,500 +679,291 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 </div>
 </div>
 </div>
-</section></section>
-<section>
-<section id="central-tendency" class="title-slide slide level1 center">
-<h1>Central Tendency</h1>
-<ul>
-<li>Mean</li>
-<li>Median</li>
-</ul>
 </section>
-<section id="mean" class="slide level2">
-<h2>Mean</h2>
-<p>We can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>mean(pandas series)</code></li>
-</ul></li>
-<li><strong>pandas</strong> series’s function
-<ul>
-<li><code>mean()</code></li>
-<li>get <strong>pandas</strong> series using <code>[column name]</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="3">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>st.mean(data[<span class="st">'height'</span>])</span>
-<span id="cb4-2"><a href="#cb4-2"></a>data[<span class="st">'height'</span>].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
-<pre><code>72.80655737704917</code></pre>
-</div>
-</div>
-</section>
-<section id="mean---more-data" class="slide level2">
-<h2>Mean - more data</h2>
-<ul>
-<li><p>The <strong>pandas</strong> series’s function can deal with multiple columns</p>
-<ul>
-<li>get multiple columns using <code>[[column 1,column 2]]</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="4">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>data[[<span class="st">'height'</span>,<span class="st">'weight'</span>]].mean()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
-<pre><code>height     72.806557
-weight    187.449180
-dtype: float64</code></pre>
-</div>
-</div>
-</section>
-<section id="median" class="slide level2">
-<h2>Median</h2>
-<p>We can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>median(pandas series)</code></li>
-</ul></li>
-<li><strong>pandas</strong> series’s function
-<ul>
-<li><code>median()</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="5">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>st.median(data[<span class="st">'height'</span>])</span>
-<span id="cb8-2"><a href="#cb8-2"></a>data[<span class="st">'height'</span>].median()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
-<pre><code>73.0</code></pre>
-</div>
-</div>
-</section></section>
-<section>
-<section id="variability" class="title-slide slide level1 center">
-<h1>Variability</h1>
-
-</section>
-<section id="variance" class="slide level2">
-<h2>Variance</h2>
-<p>We can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>variance(pandas series)</code></li>
-</ul></li>
-<li><strong>pandas</strong> series’s function
-<ul>
-<li><code>var()</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="6">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>st.variance(data[<span class="st">'height'</span>])</span>
-<span id="cb10-2"><a href="#cb10-2"></a>data[<span class="st">'height'</span>].var()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
-<pre><code>3.2223252804141502</code></pre>
-</div>
-</div>
-</section>
-<section id="standard-deviation" class="slide level2">
-<h2>Standard deviation</h2>
-<p>For sample standard deviation, we can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>stdev(pandas series)</code></li>
-</ul></li>
-<li><strong>pandas</strong> series’s function
-<ul>
-<li><code>std()</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="7">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>st.stdev(data[<span class="st">'height'</span>])</span>
-<span id="cb12-2"><a href="#cb12-2"></a>data[<span class="st">'height'</span>].std()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
-<pre><code>1.7950836416206768</code></pre>
-</div>
-</div>
-</section>
-<section id="standard-deviation---population" class="slide level2">
-<h2>Standard deviation - population</h2>
-<p>For population standard deviation, we can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>pstdev(pandas series)</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="8">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>st.pstdev(data[<span class="st">'height'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
-<pre><code>1.7921384654916481</code></pre>
-</div>
-</div>
-</section>
-<section id="quantiles--1" class="slide level2">
-<h2>Quantiles -1</h2>
-<p>For quantiles, we can use:</p>
-<ul>
-<li><strong>statistics</strong> (as <code>st</code>) package’s function
-<ul>
-<li><code>quantiles(pandas series, n=the number of partitions)</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="9">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>st.quantiles(data[<span class="st">'height'</span>],n<span class="op">=</span><span class="dv">4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
-<pre><code>[72.0, 73.0, 74.0]</code></pre>
-</div>
-</div>
-</section>
-<section id="quantiles--2" class="slide level2">
-<h2>Quantiles -2</h2>
-<ul>
-<li><strong>pandas</strong> series’s function
-<ul>
-<li><code>quantile(percentiles you want to get)</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="10">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>data[<span class="st">'height'</span>].quantile([<span class="fl">0.25</span>,<span class="fl">0.5</span>,<span class="fl">0.75</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>0.25    72.0
-0.50    73.0
-0.75    74.0
-Name: height, dtype: float64</code></pre>
-</div>
-</div>
-</section>
-<section id="summary-for-a-single-column" class="slide level2">
-<h2>Summary for a single Column</h2>
-<ul>
-<li>It is impossible to get all the statistics one by one</li>
-<li><strong>pandas</strong> series provide a warp up function
-<ul>
-<li><code>describe()</code></li>
-</ul></li>
-</ul>
-<div class="cell" data-execution_count="11">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>data[<span class="st">'height'</span>].describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>count    305.000000
-mean      72.806557
-std        1.795084
-min       67.000000
-25%       72.000000
-50%       73.000000
-75%       74.000000
-max       78.000000
-Name: height, dtype: float64</code></pre>
-</div>
-</div>
-</section>
-<section id="summary-for-a-pandas-table" class="slide level2">
-<h2>Summary for a pandas table</h2>
-<p>You can get ll the descriptive analysis statistics for a <strong>pandas</strong> table</p>
-<ul>
-<li><code>describe()</code></li>
-</ul>
+<section id="normal-probability-plots---histogram" class="slide level2">
+<h2>Normal Probability Plots - Histogram</h2>
+<p><strong>seaborn</strong> package’s</p>
+<p><code>histplot(data=your data frame,x=x axis)</code></p>
 <div class="cell" data-execution_count="12">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>data.describe()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>sns.histplot(data<span class="op">=</span>data,x<span class="op">=</span><span class="st">'weight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="12">
-
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>height</th>
-      <th>weight</th>
-      <th>bavg</th>
-      <th>HR</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>count</th>
-      <td>305.000000</td>
-      <td>305.000000</td>
-      <td>305.00000</td>
-      <td>305.000000</td>
-    </tr>
-    <tr>
-      <th>mean</th>
-      <td>72.806557</td>
-      <td>187.449180</td>
-      <td>0.26142</td>
-      <td>139.426230</td>
-    </tr>
-    <tr>
-      <th>std</th>
-      <td>1.795084</td>
-      <td>15.439766</td>
-      <td>0.01889</td>
-      <td>91.206363</td>
-    </tr>
-    <tr>
-      <th>min</th>
-      <td>67.000000</td>
-      <td>150.000000</td>
-      <td>0.21200</td>
-      <td>50.000000</td>
-    </tr>
-    <tr>
-      <th>25%</th>
-      <td>72.000000</td>
-      <td>175.000000</td>
-      <td>0.24800</td>
-      <td>76.000000</td>
-    </tr>
-    <tr>
-      <th>50%</th>
-      <td>73.000000</td>
-      <td>190.000000</td>
-      <td>0.26000</td>
-      <td>109.000000</td>
-    </tr>
-    <tr>
-      <th>75%</th>
-      <td>74.000000</td>
-      <td>195.000000</td>
-      <td>0.27400</td>
-      <td>173.000000</td>
-    </tr>
-    <tr>
-      <th>max</th>
-      <td>78.000000</td>
-      <td>230.000000</td>
-      <td>0.32800</td>
-      <td>563.000000</td>
-    </tr>
-  </tbody>
-</table>
+<pre><code>&lt;Axes: xlabel='weight', ylabel='Count'&gt;</code></pre>
 </div>
+<div class="cell-output cell-output-display">
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-13-output-2.png" width="808" height="429"></p>
 </div>
 </div>
 </section>
-<section id="correlation" class="slide level2">
-<h2>Correlation</h2>
-<p><strong>pandas</strong> series provide a function <code>corr()</code> to calculate the correlation coefficient between two series.</p>
+<section id="normal-probability-plots---pp" class="slide level2">
+<h2>Normal Probability Plots - PP</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>, we can use function <code>probplot(data, plot=sns.mpl.pyplot)</code> to draw <strong>Probability Plots</strong></p>
 <div class="cell" data-execution_count="13">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>data[<span class="st">'height'</span>].corr(data[<span class="st">'weight'</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
-<pre><code>0.596814815286583</code></pre>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 960x480 with 0 Axes&gt;</code></pre>
 </div>
 </div>
-</section></section>
-<section>
-<section id="visualization" class="title-slide slide level1 center">
-<h1>Visualization</h1>
-
-</section>
-<section id="import-packageslibraries-1" class="slide level2">
-<h2>Import packages/libraries</h2>
-<p>We will use the following packages in python for visualization.</p>
-<ul>
-<li><code>seaborn</code></li>
-<li><code>matplotlib</code></li>
-</ul>
 <div class="cell" data-execution_count="14">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1"></a>stats.probplot(data[<span class="st">'weight'</span>], plot<span class="op">=</span>sns.mpl.pyplot)</span>
+<span id="cb24-2"><a href="#cb24-2"></a>sns.mpl.pyplot.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-15-output-1.png" width="816" height="449"></p>
+</div>
 </div>
 </section>
-<section id="histogram" class="slide level2">
-<h2>Histogram</h2>
-<ul>
-<li><code>histplot(data=your data frame,x=x axis)</code> from seaborn</li>
-</ul>
+<section id="normal-probability-plots---histogram-1" class="slide level2">
+<h2>Normal Probability Plots - Histogram</h2>
+<p><strong>numpy</strong>’s function <code>random.normal</code> can be used to generate data with normal distribution</p>
 <div class="cell" data-execution_count="15">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a>sns.histplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"height"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>standard_norm <span class="op">=</span> np.random.normal(size<span class="op">=</span><span class="dv">3000</span>)</span>
+<span id="cb25-2"><a href="#cb25-2"></a>sns.histplot(standard_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="15">
-<pre><code>&lt;Axes: xlabel='height', ylabel='Count'&gt;</code></pre>
+<pre><code>&lt;Axes: ylabel='Count'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-16-output-2.png" width="808" height="429"></p>
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-16-output-2.png" width="816" height="411"></p>
 </div>
 </div>
-<ul>
-<li><a href="https://seaborn.pydata.org/generated/seaborn.histplot.html">Document</a></li>
-</ul>
 </section>
-<section id="histogram---bin-width" class="slide level2">
-<h2>Histogram - bin width</h2>
+<section id="normal-probability-plots---pp-1" class="slide level2">
+<h2>Normal Probability Plots - PP</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>, we can use function <code>probplot(data, plot=sns.mpl.pyplot)</code> to draw <strong>Probability Plots</strong></p>
 <div class="cell" data-execution_count="16">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>sns.histplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"height"</span>, binwidth<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="16">
-<pre><code>&lt;Axes: xlabel='height', ylabel='Count'&gt;</code></pre>
-</div>
 <div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-17-output-2.png" width="816" height="429"></p>
+<pre><code>&lt;Figure size 960x480 with 0 Axes&gt;</code></pre>
 </div>
 </div>
-</section>
-<section id="bar-chart" class="slide level2">
-<h2>Bar chart</h2>
-<ul>
-<li><code>barplot(data=your data, x=x axis, y=y axis)</code> from seaborn</li>
-</ul>
 <div class="cell" data-execution_count="17">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>sns.barplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"handedness"</span>,y<span class="op">=</span><span class="st">"weight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="17">
-<pre><code>&lt;Axes: xlabel='handedness', ylabel='weight'&gt;</code></pre>
-</div>
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>stats.probplot(standard_norm,plot<span class="op">=</span>sns.mpl.pyplot)</span>
+<span id="cb28-2"><a href="#cb28-2"></a>sns.mpl.pyplot.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-18-output-2.png" width="816" height="434"></p>
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-18-output-1.png" width="810" height="449"></p>
 </div>
 </div>
-<ul>
-<li><a href="https://seaborn.pydata.org/generated/seaborn.barplot.html">Document</a></li>
-</ul>
 </section>
-<section id="box-plot" class="slide level2">
-<h2>Box plot</h2>
-<ul>
-<li><code>boxplot(data=your data, x=x axis, y=y axis)</code> from seaborn</li>
-</ul>
+<section id="normal-probability-plots---histogram-2" class="slide level2">
+<h2>Normal Probability Plots - Histogram</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>, we can use function <code>skewnorm.rvs()</code> to generate skewed data</p>
 <div class="cell" data-execution_count="18">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>sns.boxplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"height"</span>,y<span class="op">=</span><span class="st">"handedness"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>skewed_norm <span class="op">=</span> stats.skewnorm.rvs(a<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span><span class="dv">3000</span>)</span>
+<span id="cb29-2"><a href="#cb29-2"></a>sns.histplot(skewed_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="18">
-<pre><code>&lt;Axes: xlabel='height', ylabel='handedness'&gt;</code></pre>
+<pre><code>&lt;Axes: ylabel='Count'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-19-output-2.png" width="826" height="429"></p>
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-19-output-2.png" width="819" height="411"></p>
 </div>
 </div>
-<ul>
-<li><a href="https://seaborn.pydata.org/generated/seaborn.boxplot.html">Document</a></li>
-</ul>
 </section>
-<section id="time-series-plot" class="slide level2">
-<h2>Time series plot</h2>
-<ul>
-<li><code>lineplot(data=your data frame,x=time column,y=data column)</code> from seaborn</li>
-</ul>
+<section id="normal-probability-plots---pp-2" class="slide level2">
+<h2>Normal Probability Plots - PP</h2>
 <div class="cell" data-execution_count="19">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a>flights <span class="op">=</span> pd.read_csv(<span class="st">"flights.csv"</span>)</span>
-<span id="cb34-2"><a href="#cb34-2"></a>flights.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="19">
-
-<div>
-<style scoped="">
-    .dataframe tbody tr th:only-of-type {
-        vertical-align: middle;
-    }
-
-    .dataframe tbody tr th {
-        vertical-align: top;
-    }
-
-    .dataframe thead th {
-        text-align: right;
-    }
-</style>
-<table border="1" class="dataframe">
-  <thead>
-    <tr style="text-align: right;">
-      <th></th>
-      <th>year</th>
-      <th>month</th>
-      <th>passengers</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <th>0</th>
-      <td>1949</td>
-      <td>January</td>
-      <td>112</td>
-    </tr>
-    <tr>
-      <th>1</th>
-      <td>1949</td>
-      <td>February</td>
-      <td>118</td>
-    </tr>
-    <tr>
-      <th>2</th>
-      <td>1949</td>
-      <td>March</td>
-      <td>132</td>
-    </tr>
-    <tr>
-      <th>3</th>
-      <td>1949</td>
-      <td>April</td>
-      <td>129</td>
-    </tr>
-    <tr>
-      <th>4</th>
-      <td>1949</td>
-      <td>May</td>
-      <td>121</td>
-    </tr>
-  </tbody>
-</table>
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 960x480 with 0 Axes&gt;</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a>stats.probplot(skewed_norm,plot<span class="op">=</span>sns.mpl.pyplot)</span>
+<span id="cb32-2"><a href="#cb32-2"></a>sns.mpl.pyplot.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-21-output-1.png" width="810" height="449"></p>
 </div>
+</div>
+</section>
+<section id="statistic-test-for-normal-distribution" class="slide level2">
+<h2>Statistic Test for Normal Distribution</h2>
+<p>With <code>scipy</code> package’s <code>stats</code>, the following functions can be used:</p>
 <ul>
-<li><a href="https://seaborn.pydata.org/generated/seaborn.lineplot.html">Document</a></li>
+<li>Shapiro-Wilk Test
+<ul>
+<li>May not be accurate for N &gt; 5000</li>
+<li>If the p-value &gt; .05, then the data is assumed to be normally distributed.</li>
+</ul></li>
+<li>Kolmogorov-Smirnov Test
+<ul>
+<li>If the p-value &gt; .05, then the data is assumed to be normally distributed.</li>
+</ul></li>
 </ul>
 </section>
-<section id="example" class="slide level2">
-<h2>Example</h2>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>sns.lineplot(data<span class="op">=</span>flights, x<span class="op">=</span><span class="st">"year"</span>, y<span class="op">=</span><span class="st">"passengers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>&lt;Axes: xlabel='year', ylabel='passengers'&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-21-output-2.png" width="816" height="429"></p>
-</div>
-</div>
-</section>
-<section id="scatter-plot" class="slide level2">
-<h2>Scatter plot</h2>
+<section id="statistic-test-for-normal-distribution-1" class="slide level2">
+<h2>Statistic Test for Normal Distribution</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>, the following functions can be used:</p>
 <ul>
-<li><code>scatterplot(data=your data, x=x axis, y=y axis)</code> from seaborn</li>
+<li>Shapiro-Wilk Test <code>shapiro(data)</code></li>
+<li>Kolmogorov-Smirnov Test <code>kstest(data, distribution, args=(mean,sd))</code></li>
 </ul>
 <div class="cell" data-execution_count="21">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>sns.scatterplot(data<span class="op">=</span>data, x<span class="op">=</span><span class="st">"height"</span>, y<span class="op">=</span><span class="st">"weight"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>stats.shapiro(standard_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>&lt;Axes: xlabel='height', ylabel='weight'&gt;</code></pre>
-</div>
-<div class="cell-output cell-output-display">
-<p><img data-src="Descriptive_files/figure-revealjs/cell-22-output-2.png" width="816" height="429"></p>
+<pre><code>ShapiroResult(statistic=0.9993031024932861, pvalue=0.32380443811416626)</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>stats.shapiro(skewed_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="22">
+<pre><code>ShapiroResult(statistic=0.9402926564216614, pvalue=3.57542329039541e-33)</code></pre>
+</div>
+</div>
+</section>
+<section id="statistic-test-for-normal-distribution-2" class="slide level2">
+<h2>Statistic Test for Normal Distribution</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>, the following functions can be used:</p>
 <ul>
-<li><a href="https://seaborn.pydata.org/generated/seaborn.scatterplot.html">Document</a></li>
+<li>Shapiro-Wilk Test <code>shapiro(data)</code></li>
+<li>Kolmogorov-Smirnov Test <code>kstest(data, distribution, args=(mean,sd))</code></li>
 </ul>
+<div class="cell" data-execution_count="23">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>stats.kstest(standard_norm, <span class="st">'norm'</span>,<span class="op">\</span></span>
+<span id="cb37-2"><a href="#cb37-2"></a>args<span class="op">=</span>(standard_norm.mean(),standard_norm.std()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="23">
+<pre><code>KstestResult(statistic=0.009649674297652122, pvalue=0.9401360333773241, statistic_location=-0.12358624513095635, statistic_sign=1)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="24">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>stats.kstest(skewed_norm, <span class="st">'norm'</span>,<span class="op">\</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>args<span class="op">=</span>(skewed_norm.mean(),skewed_norm.std()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="24">
+<pre><code>KstestResult(statistic=0.08164667225761163, pvalue=7.62605956194484e-18, statistic_location=0.646229192259413, statistic_sign=1)</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="binomial-distribution---discrete-random-variables" class="title-slide slide level1 center">
+<h1>Binomial Distribution - Discrete Random Variables</h1>
+
+</section>
+<section id="probability-sum-of-the-pmf" class="slide level2">
+<h2>Probability (sum of the pmf)</h2>
+
+<img data-src="fig/bd.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
+<p><code>binom.pmf(x, n, p)</code></p>
+<div class="cell" data-execution_count="25">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>stats.binom.pmf(<span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="25">
+<pre><code>0.31249999999999983</code></pre>
+</div>
+</div>
+</section>
+<section id="probability-sum-of-the-pmf-1" class="slide level2">
+<h2>Probability (sum of the pmf)</h2>
+
+<img data-src="fig/bd2.png" class="r-stretch"><div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>stats.binom.pmf(<span class="dv">0</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a>stats.binom.pmf(<span class="dv">1</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
+<span id="cb43-3"><a href="#cb43-3"></a>stats.binom.pmf(<span class="dv">2</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="26">
+<pre><code>0.5583457484800001</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
+<pre><code>array([0.06871948, 0.20615843, 0.28346784])</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="bu">sum</span>(stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="28">
+<pre><code>0.5583457484800001</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-6" class="slide level2">
+<h2>Quiz 3-6</h2>
+<p>The study found that when presented with prints from the same individual, a fingerprint expert will correctly identify the match 92% of the time.</p>
+<ol type="a">
+<li>What is the probability that an expert will correctly identify the match in all five pairs of fingerprints?</li>
+</ol>
+
+<img data-src="fig/3-6-1.png" class="r-stretch"><div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.92</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="29">
+<pre><code>0.6590815232000001</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-6-1" class="slide level2">
+<h2>Quiz 3-6</h2>
+<p>In contrast, a novice will correctly identify the match 75% of the time. Consider a sample of five different pairs of fingerprints, where each pair is a match.</p>
+<ol start="2" type="a">
+<li>What is the probability that a novice will correctly identify the match in all five pairs of fingerprints?</li>
+</ol>
+
+<img data-src="fig/3-6-2.png" class="r-stretch"><div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="30">
+<pre><code>0.2373046875</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="poisson-distribution---discrete-random-variables" class="title-slide slide level1 center">
+<h1>Poisson Distribution - Discrete Random Variables</h1>
+
+</section>
+<section id="probability-sum-of-the-pmf-2" class="slide level2">
+<h2>Probability (sum of the pmf)</h2>
+
+<img data-src="fig/pd.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
+<p><code>poisson.pmf(k=x, mu=λ)</code></p>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>stats.poisson.pmf(<span class="dv">4</span>, <span class="fl">3.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="31">
+<pre><code>0.19122233917513215</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-8" class="slide level2">
+<h2>Quiz 3-8</h2>
+<p>You work in Quality Assurance for an investment firm. A clerk enters 75 words per minute with 6 errors per hour.</p>
+
+<img data-src="fig/3-8.png" class="r-stretch"><div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>stats.poisson.pmf(<span class="dv">0</span>, <span class="fl">0.34</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="32">
+<pre><code>0.7117703227626097</code></pre>
+</div>
+</div>
+</section></section>
+<section>
+<section id="exponential-distribution---continuous-random-variables" class="title-slide slide level1 center">
+<h1>Exponential Distribution - Continuous Random Variables</h1>
+
+</section>
+<section id="probability-area-under-the-pdf-2" class="slide level2">
+<h2>Probability (area under the pdf)</h2>
+
+<img data-src="fig/ed.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
+<p><code>expon.cdf(x, scale=θ)</code></p>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="dv">1</span><span class="op">-</span>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>0.08208499862389884</code></pre>
+</div>
+</div>
+</section>
+<section id="quiz-3-9" class="slide level2">
+<h2>Quiz 3-9</h2>
+<p>the length of life of a magnetron tube has an exponential probability distribution with θ = 6.25.</p>
+<p>Suppose a warranty period of 5 years is attached to the magnetron tube. What fraction of tubes must the manufacturer plan to replace?</p>
+
+<img data-src="fig/3-9.png" class="r-stretch"><div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="fl">6.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="34">
+<pre><code>0.5506710358827784</code></pre>
+</div>
+</div>
 </section>
 <section id="summary" class="slide level2">
 <h2>Summary</h2>
 <ul>
-<li>Python 101</li>
-<li>Mean, Median</li>
-<li>Variance, SD, IQR</li>
-<li>Correlation</li>
-<li>Visualization
+<li>Normal Distribution
 <ul>
-<li>histogram, bar chart, box plot, time series plot (line chart), scatter plot</li>
+<li><code>NormalDist(mu=μ, sigma=σ).cdf(x)</code></li>
+<li>Probability Plot</li>
+<li>Statistic Test</li>
 </ul></li>
-<li>Summary</li>
+<li>Binomial Distribution <code>binom.pmf(x, n, p)</code></li>
+<li>Poisson Distribution <code>poisson.pmf(k=x, mu=λ)</code></li>
+<li>Exponential Distribution <code>expon.cdf(x, scale=θ)</code></li>
 </ul>
 <div class="footer footer-default">
 
@@ -1129,19 +973,19 @@ Name: height, dtype: float64</code></pre>
   </div>
 
   <script>window.backupDefine = window.define; window.define = undefined;</script>
-  <script src="Descriptive_files/libs/revealjs/dist/reveal.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/dist/reveal.js"></script>
   <!-- reveal.js plugins -->
-  <script src="Descriptive_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/quarto-support/support.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/quarto-line-highlight/line-highlight.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/pdf-export/pdfexport.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/reveal-menu/menu.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/reveal-menu/quarto-menu.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/quarto-support/support.js"></script>
   
 
-  <script src="Descriptive_files/libs/revealjs/plugin/notes/notes.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/search/search.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/zoom/zoom.js"></script>
-  <script src="Descriptive_files/libs/revealjs/plugin/math/math.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/notes/notes.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/search/search.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/zoom/zoom.js"></script>
+  <script src="RandomVariable_files/libs/revealjs/plugin/math/math.js"></script>
   <script>window.define = window.backupDefine; window.backupDefine = undefined;</script>
 
   <script>

@@ -18,7 +18,7 @@ You can install python in different way. For someone who are not familiar with p
 -   Install it by double click the installer
 -   Check if the installation success by typing `python3` in **CMD** (Windows) or **terminal** (Mac or Linux)
 
-![](checkjupyter.png)
+![](fig/checkjupyter.png)
 
 ## Packages/libraries installation
 
@@ -40,7 +40,7 @@ Of course you can use **conda** or other method to install packages
 
 ## 1. Download and install [VS Code](https://code.visualstudio.com/)
 
-[VS Code](https://code.visualstudio.com/) ![](vscode_down.png)
+[VS Code](https://code.visualstudio.com/) ![](fig/vscode_down.png)
 
 ## 2. Check python and jupyter package
 
@@ -48,30 +48,30 @@ Make sure you have installed `python` and `jupyter` package (see previous slide)
 
 \@ Terminal or CMD or Python
 
-![](checkjupyter.png)
+![](fig/checkjupyter.png)
 
 ## 3. Install Python extension
 
 In VS Code, click **Extensions**, search python, and install the extension
 
-![](pthext.png) **Jupyter** extension is also useful
+![](fig/pthext.png) **Jupyter** extension is also useful
 
 ## 4. Trust your [workspace](https://code.visualstudio.com/docs/editor/workspace-trust)
 
 Click **trust** and add the folder with codes in the trust [workspace](https://code.visualstudio.com/docs/editor/workspace-trust)
 
-![](rest.png)
+![](fig/rest.png)
 
 ## 5. Create a Jupyter Notebook
 
 -   by running the **Create: New Jupyter Notebook** command from the Command Palette (⇧⌘P)
 -   by creating a new **.ipynb** file in your workspace
 
-![](newfile.png)
+![](fig/newfile.png)
 
 ## 6. Now we are ready to start!
 
-![](jp.png)
+![](fig/jp.png)
 
 # Import Packages and Data
 

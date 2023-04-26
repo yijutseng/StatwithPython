@@ -1,0 +1,54 @@
+---
+title: "Hypothesis Testing"
+author: "Yi-Ju Tseng"
+format: 
+  revealjs:
+    slide-number: c/t
+editor: visual
+---
+
+# Basic Setup
+
+## Packages/libraries installation
+
+In **CMD** (Windows) or **terminal** (Mac or Linux), type
+
+    pip3 install pandas scipy
+
+to install packages
+
+Of course you can use **conda** or other method to install packages
+
+# Import Packages and Data
+
+## Import packages/libraries
+
+We will use the following packages in python.
+
+-   `math`
+-   `statistics`
+-   `numpy`
+-   `scipy.stats`
+-   `pandas`
+
+```{python}
+#| echo: true
+import math
+import statistics as st
+import numpy as np
+import scipy.stats
+import pandas as pd
+```
+
+## Data import
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+
+# Hypothesis Test

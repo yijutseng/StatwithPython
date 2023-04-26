@@ -1,0 +1,338 @@
+---
+title: "Descriptive Analysis"
+author: "Yi-Ju Tseng"
+format: 
+  revealjs:
+    slide-number: c/t
+    scrollable: true
+editor: visual
+---
+
+# Basic Setup
+
+## Python installation
+
+You can install python in different way. For someone who are not familiar with python, feel free to follow these steps:
+
+-   Download python \@ <https://www.python.org/downloads/>
+-   Install it by double click the installer
+-   Check if the installation success by typing `python3` in **CMD** (Windows) or **terminal** (Mac or Linux)
+
+![](checkjupyter.png)
+
+## Packages/libraries installation
+
+In **CMD** (Windows) or **terminal** (Mac or Linux), type
+
+    pip3 install pandas jupyter seaborn
+
+to install packages
+
+Of course you can use **conda** or other method to install packages
+
+## Setup an IDE for data analysis
+
+-   If you are not familiar with python IDE, I recommend you to use **VS Code** with **Jupyter notebook**.
+-   [Jupyter notebook](https://jupyter.org/) is a really good python interface for data analysis (of course including statistic).
+-   You can install and using **Jupyter notebook** in different ways.
+    -   We have installed `jupyter` library in the previous step
+-   Check the [document](https://code.visualstudio.com/docs/datascience/jupyter-notebooks) for more instruction
+
+## 1. Download and install [VS Code](https://code.visualstudio.com/)
+
+[VS Code](https://code.visualstudio.com/) ![](vscode_down.png)
+
+## 2. Check python and jupyter package
+
+Make sure you have installed `python` and `jupyter` package (see previous slide)
+
+\@ Terminal or CMD or Python
+
+![](checkjupyter.png)
+
+## 3. Install Python extension
+
+In VS Code, click **Extensions**, search python, and install the extension
+
+![](pthext.png)
+**Jupyter** extension is also useful
+
+## 4. Trust your [workspace](https://code.visualstudio.com/docs/editor/workspace-trust)
+
+Click **trust** and add the folder with codes in the trust [workspace](https://code.visualstudio.com/docs/editor/workspace-trust)
+
+![](rest.png)
+
+## 5. Create a Jupyter Notebook
+
+-   by running the **Create: New Jupyter Notebook** command from the Command Palette (⇧⌘P)
+-   by creating a new **.ipynb** file in your workspace
+
+![](newfile.png)
+
+## 6. Now we are ready to start!
+
+![](jp.png)
+
+# Import Packages and Data
+
+## Import packages/libraries
+
+We will use the following packages in python for descriptive analysis.
+
+-   `statistics`
+-   `pandas`
+
+```{python}
+#| echo: true
+import statistics as st
+import pandas as pd
+```
+
+## Data import
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+# Central Tendency
+
+-   Mean
+-   Median
+
+## Mean
+
+We can use:
+
+-   **statistic** (as `st`) package's function
+    -   `mean(pandas series)`
+-   **pandas** series's function
+    -   `mean()`
+    -   get **pandas** series using `[column name]`
+
+```{python}
+#| echo: true
+st.mean(data['height'])
+data['height'].mean()
+```
+
+## Mean - more data
+
+-   The **pandas** series's function can deal with multiple columns
+
+    -   get multiple columns using `[[column 1,column 2]]`
+
+```{python}
+#| echo: true
+data[['height','weight']].mean()
+```
+
+## Median
+
+We can use:
+
+-   **statistic** (as `st`) package's function
+    -   `median(pandas series)`
+-   **pandas** series's function
+    -   `median()`
+
+```{python}
+#| echo: true
+st.median(data['height'])
+data['height'].median()
+```
+
+# Variability
+
+## Variance
+
+We can use:
+
+-   **statistic** (as `st`) package's function
+    -   `variance(pandas series)`
+-   **pandas** series's function
+    -   `variance()`
+
+```{python}
+#| echo: true
+st.variance(data['height'])
+data['height'].var()
+```
+
+## Standard deviation
+
+For sample standard deviation, we can use:
+
+-   **statistic** (as `st`) package's function
+    -   `stdev(pandas series)`
+-   **pandas** series's function
+    -   `stdev()`
+
+```{python}
+#| echo: true
+st.stdev(data['height'])
+data['height'].std()
+```
+
+## Standard deviation - population
+
+For population standard deviation, we can use:
+
+-   **statistic** (as `st`) package's function
+    -   `pstdev(pandas series)`
+
+```{python}
+#| echo: true
+st.pstdev(data['height'])
+```
+
+## Quantiles -1
+
+For quantiles, we can use:
+
+-   **statistic** (as `st`) package's function
+    -   `quantiles(pandas series, n=the number of partitions)`
+
+```{python}
+#| echo: true
+st.quantiles(data['height'],n=4)
+```
+
+## Quantiles -2
+
+-   **pandas** series's function
+    -   `quantile(percentiles you want to get)`
+
+```{python}
+#| echo: true
+data['height'].quantile([0.25,0.5,0.75])
+```
+
+## Summary for a single Column
+
+-   It is impossible to get all the statistics one by one
+-   **pandas** series provide a warp up function
+    -   `describe()`
+
+```{python}
+#| echo: true
+data['height'].describe()
+```
+
+## Summary for a pandas table
+
+You can get ll the descriptive analysis statistics for a **pandas** table
+
+-   `describe()`
+
+```{python}
+#| echo: true
+data.describe()
+```
+
+## Correlation
+
+**pandas** series provide a function `corr()` to calculate the correlation coefficient between two series.
+
+```{python}
+#| echo: true
+data['height'].corr(data['weight'])
+```
+
+# Visualization
+
+## Import packages/libraries
+
+We will use the following packages in python for visualization.
+
+-   `seaborn`
+-   `matplotlib`
+
+```{python}
+#| echo: true
+import seaborn as sns
+```
+
+## Histogram
+
+-   `histplot(data=your data frame,x=x axis)` from seaborn
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="height")
+```
+
+-   [Document](https://seaborn.pydata.org/generated/seaborn.histplot.html)
+
+## Histogram - bin width
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="height", binwidth=2)
+```
+
+## Bar chart
+
+-   `barplot(data=your data, x=x axis, y=y axis)` from seaborn
+
+```{python}
+#| echo: true
+sns.barplot(data=data, x="handedness",y="weight")
+```
+
+-   [Document](https://seaborn.pydata.org/generated/seaborn.barplot.html)
+
+## Box plot
+
+-   `boxplot(data=your data, x=x axis, y=y axis)` from seaborn
+
+```{python}
+#| echo: true
+sns.boxplot(data=data, x="height",y="handedness")
+```
+
+-   [Document](https://seaborn.pydata.org/generated/seaborn.boxplot.html)
+
+## Time series plot
+
+-   `lineplot(data=your data frame,x=time column,y=data column)` from seaborn
+
+```{python}
+#| echo: true
+flights = pd.read_csv("flights.csv")
+flights.head()
+```
+
+-   [Document](https://seaborn.pydata.org/generated/seaborn.lineplot.html)
+
+## Example
+
+```{python}
+#| echo: true
+sns.lineplot(data=flights, x="year", y="passengers")
+```
+
+## Scatter plot
+
+-   `scatterplot(data=your data, x=x axis, y=y axis)` from seaborn
+
+```{python}
+#| echo: true
+sns.scatterplot(data=data, x="height", y="weight")
+```
+
+-   [Document](https://seaborn.pydata.org/generated/seaborn.scatterplot.html)
+
+## Summary
+
+-   Python 101
+-   Mean, Median
+-   Variance, SD, IQR
+-   Correlation
+-   Visualization
+    -   histogram, bar chart, box plot, time series plot (line chart), scatter plot
+-   Summary

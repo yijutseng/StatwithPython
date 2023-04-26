@@ -1,0 +1,179 @@
+---
+title: "Descriptive Analysis"
+author: "Yi-Ju Tseng"
+format: 
+  revealjs:
+    slide-number: c/t
+editor: visual
+---
+
+# Basic Setup
+
+## Python installation
+
+You can install python in different way. For someone who are not familiar with python, feel free to follow these steps:
+
+-   Download python \@ <https://www.python.org/downloads/>
+-   Install it by double click the installer
+-   Check if the installation success by typing `python3` in **CMD** (Windows) or **terminal** (Mac or Linux)
+
+## Packages/libraries installation
+
+In **CMD** (Windows) or **terminal** (Mac or Linux), type
+
+    pip3 install pandas
+
+to install packages
+
+Of course you can use **conda** or other method to install packages
+
+## Setup an IDE for data analysis
+
+# Import Packages and Data
+
+## Import packages/libraries
+
+We will use the following packages in python.
+
+-   `statistics`
+-   `pandas`
+
+```{python}
+#| echo: true
+import statistics as st
+import pandas as pd
+```
+
+## Data import
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+# Central Tendency
+
+-   Mean
+-   Median
+
+## Mean
+
+We can use:
+
+-   **statistic** (as `st`) package's function `mean(pandas series)`
+
+-   **pandas** series's function `mean()`
+
+    -   get **pandas** series using `[column name]`
+
+```{python}
+#| echo: true
+st.mean(data['height'])
+data['height'].mean()
+```
+
+-   The **pandas** series's function can deal with multiple columns
+
+    -   get multiple columns using `[[column name1,column name2]]`
+
+```{python}
+#| echo: true
+data[['height','weight']].mean()
+```
+
+## Median
+
+We can use:
+
+-   **statistic** (as `st`) package's function `median(pandas series)`
+
+-   **pandas** series's function `median()`
+
+```{python}
+#| echo: true
+st.median(data['height'])
+data['height'].median()
+```
+
+# Variability
+
+## Variance
+
+We can use:
+
+-   **statistic** (as `st`) package's function `variance(pandas series)`
+
+-   **pandas** series's function `variance()`
+
+```{python}
+#| echo: true
+st.variance(data['height'])
+data['height'].var()
+```
+
+## Standard deviation
+
+For sample standard deviation, we can use:
+
+-   **statistic** (as `st`) package's function `stdev(pandas series)`
+
+-   **pandas** series's function `stdev()`
+
+```{python}
+#| echo: true
+st.stdev(data['height'])
+data['height'].std()
+```
+
+For population standard deviation, we can use:
+
+-   **statistic** (as `st`) package's function `pstdev(pandas series)`
+
+```{python}
+#| echo: true
+st.pstdev(data['height'])
+```
+
+## Quantiles
+
+For quantiles, we can use:
+
+-   **statistic** (as `st`) package's function `quantiles(pandas series,n=the number of partitions)`
+
+-   **pandas** series's function `quantile(the percentiles you want to get)`
+
+```{python}
+#| echo: true
+st.quantiles(data['height'],n=4)
+data['height'].quantile([0.25,0.5,0.75])
+```
+
+## Summary for a single Column
+
+It is impossible to get all the descriptive analysis statistics one by one, so **pandas** series provide a warp up function `describe()`
+
+```{python}
+#| echo: true
+data['height'].describe()
+```
+
+## Summary for a pandas table
+
+And you can get ll the descriptive analysis statistics for a **pandas** table directly using `describe()`
+
+```{python}
+#| echo: true
+data.describe()
+```
+
+## Correlation
+
+**pandas** series also provide a function `corr()` to calculate the correlation coefficient between two series.
+
+```{python}
+#| echo: true
+data['height'].corr(data['weight'])
+```

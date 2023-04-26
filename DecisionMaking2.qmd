@@ -1,0 +1,234 @@
+---
+title: "Decision Making for Two Samples"
+author: "Yi-Ju Tseng"
+format: revealjs
+editor: visual
+---
+
+
+# Import Packages and Data
+
+## Packages installation
+
+In **CMD** (Windows) or **terminal** (Mac or Linux), type
+
+```         
+pip3 install tableone
+```
+
+to install packages
+
+Of course you can use **conda** or other method to install packages
+
+## Import packages
+
+We will use the following packages in python.
+
+-   `statistics`, `pandas`, `seaborn`, `numpy`, `random`, `math`, `statsmodels`, `scipy`, `tableone`
+
+```{python}
+#| echo: true
+import statistics as st
+import pandas as pd
+#import seaborn as sns
+import random
+from scipy import stats
+#import numpy as np
+#import math
+#from statsmodels.stats.weightstats import ztest as ztest
+import tableone
+```
+
+## Import data
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+
+## Describe the data
+
+```{python}
+#| echo: true
+data.describe()
+```
+
+## Describe the data, group by some variable
+
+- Use `tableone` package's `TableOne` function
+- `TableOne(data, columns, categorical, groupby, nonnormal, pval=True)`
+
+Tom J Pollard, Alistair E W Johnson, Jesse D Raffa, Roger G Mark;
+tableone: An open source Python package for producing summary statistics
+for research papers, JAMIA Open, Volume 1, Issue 1, 1 July 2018, Pages 26–31,
+https://doi.org/10.1093/jamiaopen/ooy012
+
+```{python}
+#| echo: true
+mytable=tableone.TableOne(data,\
+columns=['handedness','height','weight','bavg','HR'],\
+groupby=['handedness'], pval=True)
+print(mytable.tabulate(tablefmt = "fancy_grid"))
+```
+
+
+# t-test
+
+## When to use z-test vs. t-test?
+
+**t-test**:
+- Target parameter: mean
+- Sample size <30
+- Population sd **unknown**
+- Population has **normal distribution**
+
+**z-test**:
+- Target parameter: mean
+- Sample size >=30 and Population has **any distribution**
+- Sample size <30 and Population has **normal distribution** and Population sd **known**
+
+## Check the data
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="bavg", binwidth=0.01)
+```
+
+## Shapiro-Wilk Test
+
+With **scipy** package's `stats`, the following functions can be used:
+
+-   Shapiro-Wilk Test `shapiro(data)`
+    -   May not be accurate for N \> 5000
+    -   If the p-value \> .05, then the data is assumed to be normally distributed.
+
+```{python}
+#| echo: true
+stats.shapiro(data["bavg"])
+```
+
+## Two-sided z-test, small sample
+
+-   H0: The average batting rate = 0.25
+-   H1: The average batting rate != 0.25
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp9=random.sample(list(data["bavg"]), 9) # sampling 
+st.stdev(samp9) # sample sd
+```
+## Two-sided z-test, small sample
+
+
+
+
+
+-   Use the formula directly
+-   `ztest(data=your data,value=the value you want to compare with)` from `statsmodels.stats.weightstats`, but this function use sd from samples, not population
+-   return `(test statistic, p-value)`
+```{python}
+#| echo: true
+ztest(samp9, value=0.25) #z value with sample sd
+```
+
+```{python}
+#| echo: true
+(st.mean(samp9)-0.25)/(st.stdev(samp9)/math.sqrt(9)) # z value
+```
+
+## Population sd vs. sample sd, large n
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["bavg"]), 30) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000sd=np.std(samp1000,axis=1)
+np.mean(samp1000sd) # sample sd, average
+```
+
+```{python}
+#| echo: true
+sns.histplot(samp1000sd, binwidth=0.001)
+```
+
+
+## Population sd vs. sample sd, small n
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["bavg"]), 9) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000sd=np.std(samp1000,axis=1)
+np.mean(samp1000sd) # sample sd, average
+```
+
+```{python}
+#| echo: true
+sns.histplot(samp1000sd, binwidth=0.001)
+```
+
+
+## Two-sided z-test, large sample
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp30=random.sample(list(data["bavg"]), 30) # sampling 
+st.stdev(samp30) # sample sd
+```
+
+## Two-sided z-test, large sample
+
+-   Use the formula directly
+```{python}
+#| echo: true
+(st.mean(samp30)-0.25)/(data["bavg"].std()/math.sqrt(30)) # z value
+```
+-   `ztest(data=your data,value=the value you want to compare with)` from `statsmodels.stats.weightstats`, but this function use sd from samples, not population
+-   return `(test statistic, p-value)`
+```{python}
+#| echo: true
+ztest(samp30, value=0.25) #z value with sample sd
+```
+
+## One-sided
+
+-   `ztest(data=your data,value=the value you want to compare with,alternative=side)` from `statsmodels.stats.weightstats`
+-   `alternative="smaller"` or `alternative="larger"`
+-   assume that `data['bavg']` are the samples you want to test
+
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25)
+```
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25, alternative="larger")
+```
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25, alternative="smaller")
+```

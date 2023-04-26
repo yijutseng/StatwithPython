@@ -24,7 +24,9 @@ You can install python in different way. For someone who are not familiar with p
 
 In **CMD** (Windows) or **terminal** (Mac or Linux), type
 
-    pip3 install pandas jupyter seaborn
+```         
+pip3 install pandas jupyter seaborn
+```
 
 to install packages
 

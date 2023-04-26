@@ -26,6 +26,7 @@ import pandas as pd
 import seaborn as sns
 import numpy as np
 from scipy import stats
+import matplotlib.pyplot as plt
 ```
 
 # Normal Distribution - Continuous Random Variables
@@ -256,6 +257,40 @@ args=(skewed_norm.mean(),skewed_norm.std()))
 
 # Binomial Distribution - Discrete Random Variables
 
+## Binomial Distribution - pmf
+![](fig/bd.png)
+
+- n: number of trials
+- x: number of success
+- p: Probability of a ‘Success’ on a single trial
+
+## Binomial Distribution - pmf
+With **scipy** package's `stats`:
+
+`binom.pmf(x, n, p)`
+```{python}
+sns.mpl.pyplot.clf()
+```
+```{python}
+#| eval: false
+#| echo: true
+x = np.arange(0,6)
+binomial_pmf = stats.binom.pmf(x, 5, 0.5)
+df = {"X":x,"P":binomial_pmf}
+sns.barplot(data=df,x="X",y="P")
+plt.show()
+```
+## Binomial Distribution - pmf
+```{python}
+#| echo: false
+x = np.arange(0,6)
+binomial_pmf = stats.binom.pmf(x, 5, 0.5)
+df = {"X":x,"P":binomial_pmf}
+sns.barplot(data=df,x="X",y="P")
+plt.show()
+```
+
+
 ## Probability (sum of the pmf)
 
 ![](fig/bd.png)
@@ -290,7 +325,7 @@ stats.binom.pmf([0,1,2], 12, 0.2)
 sum(stats.binom.pmf([0,1,2], 12, 0.2))
 ```
 
-## Quiz 3-6
+## Quiz 3-6-a
 
 The study found that when presented with prints from the same individual, a fingerprint expert will correctly identify the match 92% of the time. 
 
@@ -304,7 +339,7 @@ a. What is the probability that an expert will correctly identify the match in a
 stats.binom.pmf(5, 5, 0.92)
 ```
 
-## Quiz 3-6
+## Quiz 3-6-b
 
 In contrast, a novice will correctly identify the match 75% of the time. Consider a sample of five different pairs of fingerprints, where each pair is a match.
 
@@ -320,6 +355,32 @@ stats.binom.pmf(5, 5, 0.75)
 
 # Poisson Distribution - Discrete Random Variables
 
+## Poisson Distribution - pmf
+![](fig/pd.png)
+
+## Poisson Distribution - pmf
+With **scipy** package's `stats`:
+
+`poisson.pmf(k=x, mu=λ)`
+```{python}
+sns.mpl.pyplot.clf()
+```
+```{python}
+#| echo: true
+#| eval: false
+x = np.arange(0, 20)
+p = stats.poisson.pmf(k=x, mu=3.6)
+sns.barplot(x=x,y=p)
+plt.show()
+```
+## Poisson Distribution - pmf
+```{python}
+#| echo: false
+x = np.arange(0, 20)
+p = stats.poisson.pmf(k=x, mu=3.6)
+sns.barplot(x=x,y=p)
+plt.show()
+```
 ## Probability (sum of the pmf)
 
 ![](fig/pd.png)

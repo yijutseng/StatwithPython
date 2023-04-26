@@ -7,7 +7,7 @@
 <link href="RandomVariable_files/libs/quarto-html/tippy.css" rel="stylesheet">
 <link href="RandomVariable_files/libs/quarto-html/quarto-html.min.css" rel="stylesheet" data-mode="light">
 <link href="RandomVariable_files/libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles"><meta charset="utf-8">
-  <meta name="generator" content="quarto-1.2.269">
+  <meta name="generator" content="quarto-1.2.335">
 
   <meta name="author" content="Yi-Ju Tseng @NYCU">
   <title>Random Variable and Distribution</title>
@@ -422,7 +422,8 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <span id="cb1-2"><a href="#cb1-2"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-3"><a href="#cb1-3"></a><span class="im">import</span> seaborn <span class="im">as</span> sns</span>
 <span id="cb1-4"><a href="#cb1-4"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-5"><a href="#cb1-5"></a><span class="im">from</span> scipy <span class="im">import</span> stats</span>
+<span id="cb1-6"><a href="#cb1-6"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section></section>
 <section>
@@ -437,13 +438,13 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <p><code>NormalDist(mu=μ, sigma=σ).cdf(x)</code></p>
 <div class="cell" data-execution_count="2">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>).cdf(<span class="fl">1.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="2">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>0.9192433407662289</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="3">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>st.NormalDist().cdf(<span class="fl">1.4</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="3">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <pre><code>0.9192433407662289</code></pre>
 </div>
 </div>
@@ -453,13 +454,13 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 <img data-src="fig/pdf.png" class="r-stretch"><div class="cell" data-execution_count="4">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">0.2508</span>, sigma<span class="op">=</span><span class="fl">0.0005</span>).cdf(<span class="fl">0.2485</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="4">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>2.1124547024964357e-06</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="5">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">0.2508</span>, sigma<span class="op">=</span><span class="fl">0.0005</span>).cdf(<span class="fl">0.2515</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="5">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>0.9192433407662224</code></pre>
 </div>
 </div>
@@ -474,7 +475,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <img data-src="fig/3-3-1.png" class="r-stretch"><div class="cell" data-execution_count="6">
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python code-overflow-scroll number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">2400</span>)<span class="op">\</span></span>
 <span id="cb10-2"><a href="#cb10-2"></a>  <span class="op">-</span>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">2000</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="6">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>0.4772498680518208</code></pre>
 </div>
 </div>
@@ -488,7 +489,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 <img data-src="fig/3-3-2.png" class="r-stretch"><div class="cell" data-execution_count="7">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a>st.NormalDist(mu<span class="op">=</span><span class="dv">2000</span>, sigma<span class="op">=</span><span class="dv">200</span>).cdf(<span class="dv">1470</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="7">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>0.004024588542758334</code></pre>
 </div>
 </div>
@@ -500,7 +501,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 <img data-src="fig/p-value.png" class="r-stretch"><div class="cell" data-execution_count="8">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>st.NormalDist().inv_cdf(<span class="fl">0.1217</span><span class="op">+</span><span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="8">
+<div class="cell-output cell-output-display" data-execution_count="46">
 <pre><code>0.30994865777600955</code></pre>
 </div>
 </div>
@@ -515,7 +516,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <img data-src="fig/3-4-1.png" class="r-stretch"><div class="cell" data-execution_count="9">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).cdf(<span class="dv">110</span>)<span class="op">-\</span></span>
 <span id="cb16-2"><a href="#cb16-2"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).cdf(<span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="9">
+<div class="cell-output cell-output-display" data-execution_count="47">
 <pre><code>0.4677406073541885</code></pre>
 </div>
 </div>
@@ -529,7 +530,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 <img data-src="fig/3-4-2.png" class="r-stretch"><div class="cell" data-execution_count="10">
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>st.NormalDist(mu<span class="op">=</span><span class="fl">105.3</span>, sigma<span class="op">=</span><span class="dv">8</span>).inv_cdf(<span class="fl">0.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
+<div class="cell-output cell-output-display" data-execution_count="48">
 <pre><code>99.90408199843134</code></pre>
 </div>
 </div>
@@ -545,7 +546,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>data <span class="op">=</span> pd.read_csv(<span class="st">"baseball_data.csv"</span>)</span>
 <span id="cb20-2"><a href="#cb20-2"></a>data</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
+<div class="cell-output cell-output-display" data-execution_count="49">
 
 <div>
 <style scoped="">
@@ -686,7 +687,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <p><code>histplot(data=your data frame,x=x axis)</code></p>
 <div class="cell" data-execution_count="12">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>sns.histplot(data<span class="op">=</span>data,x<span class="op">=</span><span class="st">'weight'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
+<div class="cell-output cell-output-display" data-execution_count="50">
 <pre><code>&lt;Axes: xlabel='weight', ylabel='Count'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -716,7 +717,7 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <div class="cell" data-execution_count="15">
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a>standard_norm <span class="op">=</span> np.random.normal(size<span class="op">=</span><span class="dv">3000</span>)</span>
 <span id="cb25-2"><a href="#cb25-2"></a>sns.histplot(standard_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="15">
+<div class="cell-output cell-output-display" data-execution_count="53">
 <pre><code>&lt;Axes: ylabel='Count'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
@@ -746,11 +747,11 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <div class="cell" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>skewed_norm <span class="op">=</span> stats.skewnorm.rvs(a<span class="op">=</span><span class="dv">10</span>, size<span class="op">=</span><span class="dv">3000</span>)</span>
 <span id="cb29-2"><a href="#cb29-2"></a>sns.histplot(skewed_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="18">
+<div class="cell-output cell-output-display" data-execution_count="56">
 <pre><code>&lt;Axes: ylabel='Count'&gt;</code></pre>
 </div>
 <div class="cell-output cell-output-display">
-<p><img data-src="RandomVariable_files/figure-revealjs/cell-19-output-2.png" width="819" height="411"></p>
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-19-output-2.png" width="816" height="411"></p>
 </div>
 </div>
 </section>
@@ -793,14 +794,14 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 </ul>
 <div class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1"></a>stats.shapiro(standard_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="21">
-<pre><code>ShapiroResult(statistic=0.9993031024932861, pvalue=0.32380443811416626)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="59">
+<pre><code>ShapiroResult(statistic=0.9992418885231018, pvalue=0.25002941489219666)</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>stats.shapiro(skewed_norm)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
-<pre><code>ShapiroResult(statistic=0.9402926564216614, pvalue=3.57542329039541e-33)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="60">
+<pre><code>ShapiroResult(statistic=0.941602349281311, pvalue=7.104239699148655e-33)</code></pre>
 </div>
 </div>
 </section>
@@ -814,15 +815,15 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <div class="cell" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1"></a>stats.kstest(standard_norm, <span class="st">'norm'</span>,<span class="op">\</span></span>
 <span id="cb37-2"><a href="#cb37-2"></a>args<span class="op">=</span>(standard_norm.mean(),standard_norm.std()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="23">
-<pre><code>KstestResult(statistic=0.009649674297652122, pvalue=0.9401360333773241, statistic_location=-0.12358624513095635, statistic_sign=1)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="61">
+<pre><code>KstestResult(statistic=0.014450757533408576, pvalue=0.5530800639002007, statistic_location=-0.3566578832989416, statistic_sign=1)</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>stats.kstest(skewed_norm, <span class="st">'norm'</span>,<span class="op">\</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a>args<span class="op">=</span>(skewed_norm.mean(),skewed_norm.std()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="24">
-<pre><code>KstestResult(statistic=0.08164667225761163, pvalue=7.62605956194484e-18, statistic_location=0.646229192259413, statistic_sign=1)</code></pre>
+<div class="cell-output cell-output-display" data-execution_count="62">
+<pre><code>KstestResult(statistic=0.07960050707173066, pvalue=5.559960961703108e-17, statistic_location=0.5990846245423823, statistic_sign=1)</code></pre>
 </div>
 </div>
 </section></section>
@@ -831,14 +832,48 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <h1>Binomial Distribution - Discrete Random Variables</h1>
 
 </section>
+<section id="binomial-distribution---pmf" class="slide level2">
+<h2>Binomial Distribution - pmf</h2>
+
+<img data-src="fig/bd.png" class="r-stretch"><ul>
+<li>n: number of trials</li>
+<li>x: number of success</li>
+<li>p: Probability of a ‘Success’ on a single trial</li>
+</ul>
+</section>
+<section id="binomial-distribution---pmf-1" class="slide level2">
+<h2>Binomial Distribution - pmf</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
+<p><code>binom.pmf(x, n, p)</code></p>
+<div class="cell" data-execution_count="25">
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 960x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>,<span class="dv">6</span>)</span>
+<span id="cb42-2"><a href="#cb42-2"></a>binomial_pmf <span class="op">=</span> stats.binom.pmf(x, <span class="dv">5</span>, <span class="fl">0.5</span>)</span>
+<span id="cb42-3"><a href="#cb42-3"></a>df <span class="op">=</span> {<span class="st">"X"</span>:x,<span class="st">"P"</span>:binomial_pmf}</span>
+<span id="cb42-4"><a href="#cb42-4"></a>sns.barplot(data<span class="op">=</span>df,x<span class="op">=</span><span class="st">"X"</span>,y<span class="op">=</span><span class="st">"P"</span>)</span>
+<span id="cb42-5"><a href="#cb42-5"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="binomial-distribution---pmf-2" class="slide level2">
+<h2>Binomial Distribution - pmf</h2>
+<div class="cell" data-execution_count="27">
+<div class="cell-output cell-output-display">
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-28-output-1.png" width="802" height="411"></p>
+</div>
+</div>
+</section>
 <section id="probability-sum-of-the-pmf" class="slide level2">
 <h2>Probability (sum of the pmf)</h2>
 
 <img data-src="fig/bd.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
 <p><code>binom.pmf(x, n, p)</code></p>
-<div class="cell" data-execution_count="25">
-<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a>stats.binom.pmf(<span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>stats.binom.pmf(<span class="dv">3</span>, <span class="dv">5</span>, <span class="fl">0.5</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="65">
 <pre><code>0.31249999999999983</code></pre>
 </div>
 </div>
@@ -846,51 +881,51 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <section id="probability-sum-of-the-pmf-1" class="slide level2">
 <h2>Probability (sum of the pmf)</h2>
 
-<img data-src="fig/bd2.png" class="r-stretch"><div class="cell" data-execution_count="26">
-<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a>stats.binom.pmf(<span class="dv">0</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
-<span id="cb43-2"><a href="#cb43-2"></a>stats.binom.pmf(<span class="dv">1</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
-<span id="cb43-3"><a href="#cb43-3"></a>stats.binom.pmf(<span class="dv">2</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<img data-src="fig/bd2.png" class="r-stretch"><div class="cell" data-execution_count="29">
+<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>stats.binom.pmf(<span class="dv">0</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
+<span id="cb45-2"><a href="#cb45-2"></a>stats.binom.pmf(<span class="dv">1</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)<span class="op">+\</span></span>
+<span id="cb45-3"><a href="#cb45-3"></a>stats.binom.pmf(<span class="dv">2</span>, <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="66">
 <pre><code>0.5583457484800001</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="27">
-<div class="sourceCode cell-code" id="cb45"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1"></a>stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a>stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="67">
 <pre><code>array([0.06871948, 0.20615843, 0.28346784])</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="bu">sum</span>(stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a><span class="bu">sum</span>(stats.binom.pmf([<span class="dv">0</span>,<span class="dv">1</span>,<span class="dv">2</span>], <span class="dv">12</span>, <span class="fl">0.2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="68">
 <pre><code>0.5583457484800001</code></pre>
 </div>
 </div>
 </section>
-<section id="quiz-3-6" class="slide level2">
-<h2>Quiz 3-6</h2>
+<section id="quiz-3-6-a" class="slide level2">
+<h2>Quiz 3-6-a</h2>
 <p>The study found that when presented with prints from the same individual, a fingerprint expert will correctly identify the match 92% of the time.</p>
 <ol type="a">
 <li>What is the probability that an expert will correctly identify the match in all five pairs of fingerprints?</li>
 </ol>
 
-<img data-src="fig/3-6-1.png" class="r-stretch"><div class="cell" data-execution_count="29">
-<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.92</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+<img data-src="fig/3-6-1.png" class="r-stretch"><div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.92</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="69">
 <pre><code>0.6590815232000001</code></pre>
 </div>
 </div>
 </section>
-<section id="quiz-3-6-1" class="slide level2">
-<h2>Quiz 3-6</h2>
+<section id="quiz-3-6-b" class="slide level2">
+<h2>Quiz 3-6-b</h2>
 <p>In contrast, a novice will correctly identify the match 75% of the time. Consider a sample of five different pairs of fingerprints, where each pair is a match.</p>
 <ol start="2" type="a">
 <li>What is the probability that a novice will correctly identify the match in all five pairs of fingerprints?</li>
 </ol>
 
-<img data-src="fig/3-6-2.png" class="r-stretch"><div class="cell" data-execution_count="30">
-<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<img data-src="fig/3-6-2.png" class="r-stretch"><div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>stats.binom.pmf(<span class="dv">5</span>, <span class="dv">5</span>, <span class="fl">0.75</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="70">
 <pre><code>0.2373046875</code></pre>
 </div>
 </div>
@@ -900,14 +935,42 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <h1>Poisson Distribution - Discrete Random Variables</h1>
 
 </section>
+<section id="poisson-distribution---pmf" class="slide level2">
+<h2>Poisson Distribution - pmf</h2>
+
+<img data-src="fig/pd.png" class="r-stretch"></section>
+<section id="poisson-distribution---pmf-1" class="slide level2">
+<h2>Poisson Distribution - pmf</h2>
+<p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
+<p><code>poisson.pmf(k=x, mu=λ)</code></p>
+<div class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<pre><code>&lt;Figure size 960x480 with 0 Axes&gt;</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>x <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">20</span>)</span>
+<span id="cb56-2"><a href="#cb56-2"></a>p <span class="op">=</span> stats.poisson.pmf(k<span class="op">=</span>x, mu<span class="op">=</span><span class="fl">3.6</span>)</span>
+<span id="cb56-3"><a href="#cb56-3"></a>sns.barplot(x<span class="op">=</span>x,y<span class="op">=</span>p)</span>
+<span id="cb56-4"><a href="#cb56-4"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="poisson-distribution---pmf-2" class="slide level2">
+<h2>Poisson Distribution - pmf</h2>
+<div class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<p><img data-src="RandomVariable_files/figure-revealjs/cell-37-output-1.png" width="811" height="411"></p>
+</div>
+</div>
+</section>
 <section id="probability-sum-of-the-pmf-2" class="slide level2">
 <h2>Probability (sum of the pmf)</h2>
 
 <img data-src="fig/pd.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
 <p><code>poisson.pmf(k=x, mu=λ)</code></p>
-<div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>stats.poisson.pmf(<span class="dv">4</span>, <span class="fl">3.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a>stats.poisson.pmf(<span class="dv">4</span>, <span class="fl">3.6</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="73">
 <pre><code>0.19122233917513215</code></pre>
 </div>
 </div>
@@ -916,9 +979,9 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <h2>Quiz 3-8</h2>
 <p>You work in Quality Assurance for an investment firm. A clerk enters 75 words per minute with 6 errors per hour.</p>
 
-<img data-src="fig/3-8.png" class="r-stretch"><div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a>stats.poisson.pmf(<span class="dv">0</span>, <span class="fl">0.34</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<img data-src="fig/3-8.png" class="r-stretch"><div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>stats.poisson.pmf(<span class="dv">0</span>, <span class="fl">0.34</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="74">
 <pre><code>0.7117703227626097</code></pre>
 </div>
 </div>
@@ -933,9 +996,9 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 
 <img data-src="fig/ed.png" class="r-stretch"><p>With <strong>scipy</strong> package’s <code>stats</code>:</p>
 <p><code>expon.cdf(x, scale=θ)</code></p>
-<div class="cell" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="dv">1</span><span class="op">-</span>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="dv">1</span><span class="op">-</span>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="dv">2</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="75">
 <pre><code>0.08208499862389884</code></pre>
 </div>
 </div>
@@ -945,9 +1008,9 @@ Yi-Ju Tseng <span class="citation" data-cites="NYCU">@NYCU</span>
 <p>the length of life of a magnetron tube has an exponential probability distribution with θ = 6.25.</p>
 <p>Suppose a warranty period of 5 years is attached to the magnetron tube. What fraction of tubes must the manufacturer plan to replace?</p>
 
-<img data-src="fig/3-9.png" class="r-stretch"><div class="cell" data-execution_count="34">
-<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="fl">6.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<img data-src="fig/3-9.png" class="r-stretch"><div class="cell" data-execution_count="40">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a>stats.expon.cdf(x<span class="op">=</span><span class="dv">5</span>,scale<span class="op">=</span><span class="fl">6.25</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="76">
 <pre><code>0.5506710358827784</code></pre>
 </div>
 </div>

@@ -1,0 +1,826 @@
+---
+title: "Decision Making for a Single Sample"
+author: "Yi-Ju Tseng"
+format: revealjs
+editor: visual
+---
+
+# Import Packages and Data
+
+## Packages installation
+
+In **CMD** (Windows) or **terminal** (Mac or Linux), type
+
+```         
+pip3 install statsmodels random
+```
+
+to install packages
+
+Of course you can use **conda** or other method to install packages
+
+## Import packages
+
+We will use the following packages in python.
+
+-   `statistics`, `pandas`, `seaborn`, `numpy`, `random`, `math`, `statsmodels`, `scipy`
+
+```{python}
+#| echo: true
+import statistics as st
+import pandas as pd
+import seaborn as sns
+import random
+from scipy import stats
+import numpy as np
+import math
+import statsmodels.stats.power as power
+from statsmodels.stats.weightstats import ztest as ztest
+from statsmodels.stats.proportion import proportions_ztest as proportions_ztest
+from statsmodels.stats.proportion import proportion_confint as proportion_confint
+```
+
+## Import data
+
+Import data and analyze with python using **pandas**. `pd.read_csv("file path + name")`
+
+```{python}
+#| echo: true
+data = pd.read_csv("baseball_data.csv")
+data
+```
+
+## Describe the data
+
+```{python}
+#| echo: true
+data.describe()
+```
+
+# Sampling Distribution
+
+## Central Limit Theorem - population distribution
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="HR", binwidth=5)
+```
+
+## Central Limit Theorem - population distribution
+
+With **scipy** package's `stats`:
+
+-   Shapiro-Wilk Test `shapiro(data)`
+
+    -   May not be accurate for N \> 5000
+    -   If the p-value \> .05, then the data is assumed to be normally distributed.
+
+    ```{python}
+    #| echo: true
+    stats.shapiro(data["HR"])
+    ```
+
+-   p-value \< 0.05, HR is not normally distributed.
+
+## Sampling, n=3, one time
+
+With `random`'s `random.sample(data,n)` function, we can randomly select `n` samples from the population
+
+```{python}
+#| echo: true
+samp=random.sample(list(data["HR"]), 3)
+samp
+```
+
+Then we can get the mean of the samples
+
+```{python}
+#| echo: true
+st.mean(samp)
+```
+
+## Sampling, n=3, many times
+
+Perform sampling 1000 times
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["HR"]), 3) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000
+```
+
+## Sampling, n=3, many times
+
+1.  calculate the sample mean for the 1000 times of sampling (get 1000 sample means)
+2.  plot the **Sampling distribution of the sample mean**
+
+```{python}
+#| echo: true
+nsamp1000mean=np.mean(samp1000,axis=1)
+sns.histplot(data=nsamp1000mean, binwidth=5)
+```
+
+## Sampling, n=3, many times
+
+Sampling distribution of the sample mean - mean
+
+The mean of sample mean vs. the population mean
+
+```{python}
+#| echo: true
+np.mean(nsamp1000mean)
+```
+
+```{python}
+#| echo: true
+data["HR"].mean()
+```
+
+## Sampling, n=3, many times
+
+Sampling distribution of the sample mean - sd (standard error)
+
+The sd of sample mean vs. the estimated standard error
+
+```{python}
+#| echo: true
+np.std(nsamp1000mean)
+```
+
+```{python}
+#| echo: true
+data["HR"].std()/(math.sqrt(3))
+```
+
+## Sampling, n=30, many times
+
+Sampling with `n=30`, 1000 times
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["HR"]), 30) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000
+```
+
+## Sampling, n=30, many times
+
+1.  get 1000 sample mean for the 1000 times of sampling
+2.  plot the **Sampling distribution of the sample mean**
+
+```{python}
+#| echo: true
+nsamp1000mean=np.mean(samp1000,axis=1)
+sns.histplot(data=nsamp1000mean, binwidth=5)
+```
+
+## Sampling, n=30, many times
+
+Sampling distribution of the sample mean - mean
+
+The mean of sample mean vs. the population mean
+
+```{python}
+#| echo: true
+np.mean(nsamp1000mean)
+```
+
+```{python}
+#| echo: true
+data["HR"].mean()
+```
+
+## Sampling, n=30, many times
+
+Sampling distribution of the sample mean - sd (standard error)
+
+The sd of sample mean vs. the estimated standard error
+
+```{python}
+#| echo: true
+np.std(nsamp1000mean)
+```
+
+```{python}
+#| echo: true
+data["HR"].std()/(math.sqrt(30))
+```
+
+## Central Limit Theorem - population distribution
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="HR", binwidth=5)
+```
+
+## Sampling, n=30, many times
+
+```{python}
+#| echo: true
+nsamp1000mean=np.mean(samp1000,axis=1)
+sns.histplot(data=nsamp1000mean, binwidth=5)
+```
+
+# Confidence Interval
+
+## 95% of Confidence Interval
+
+The idea of confidence interval (CI)...
+
+-   CI is a range of estimates for an unknown parameter
+-   95% CI = out of all intervals computed at the 95% level, **95% of them should contain the parameter's true value**
+
+True value of the mean of #HR
+
+```{python}
+#| echo: true
+data["HR"].mean()
+```
+
+## Simulation (95% CI)
+
+Sampling 1000 times (with n=30)
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["HR"]), 30) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000
+```
+
+## Simulation (95% CI)
+
+`stats.norm.interval(confidence,loc=point estimation, scale=standard error)`
+
+```{python}
+#| echo: true
+stats.norm.interval(confidence=0.95,\
+loc=np.mean(samp1000[1]), scale=data["HR"].std()/math.sqrt(30))
+```
+
+```{python}
+#| echo: true
+stats.norm.interval(confidence=0.95, \
+loc=np.mean(samp1000[2]), scale=data["HR"].std()/math.sqrt(30))
+```
+
+```{python}
+#| echo: true
+stats.norm.interval(confidence=0.95, \
+loc=np.mean(samp1000[3]), scale=data["HR"].std()/math.sqrt(30))
+```
+
+...
+
+**95% of them should contain the parameter's true value (=139)**
+
+## Simulation (95% CI)
+
+```{python}
+#| echo: true
+ci1000=[stats.norm.interval(confidence=0.95,\
+loc=np.mean(samp1000[i]), \
+scale=data["HR"].std()/math.sqrt(30)) for i in range(1000)]
+
+n=0
+for i in range(1000):
+    if data["HR"].mean()<ci1000[i][0] or \
+    data["HR"].mean()>ci1000[i][1]:
+      print(ci1000[i])
+      n+=1
+
+print(n)
+print((1000-n)/1000)
+```
+
+## Simulation (95% CI)
+
+```{python}
+#| echo: true
+print(n)
+print((1000-n)/1000)
+```
+
+# z-test
+
+## Check the data
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="bavg", binwidth=0.01)
+```
+
+Normally distributed?
+
+## Shapiro-Wilk Test
+
+With **scipy** package's `stats`, the following functions can be used:
+
+-   Shapiro-Wilk Test `shapiro(data)`
+    -   May not be accurate for N \> 5000
+    -   If the p-value \> .05, then the data is assumed to be normally distributed.
+
+```{python}
+#| echo: true
+stats.shapiro(data["bavg"])
+```
+
+-   p-value \> .05, average batting rate is normally distributed.
+
+## Two-sided z-test, small sample
+
+-   H0: The average batting rate = 0.25
+-   H1: The average batting rate != 0.25
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp9=random.sample(list(data["bavg"]), 9) # sampling 
+st.stdev(samp9) # sample sd
+```
+
+## Two-sided z-test, small sample
+
+-   Use the formula directly
+
+```{python}
+#| echo: true
+(st.mean(samp9)-0.25)/(data["bavg"].std()/math.sqrt(9)) # z value
+```
+
+## Two-sided z-test, small sample
+
+-   `ztest(data=your data,value=the value you want to compare with)` from `statsmodels.stats.weightstats`, but this function use **sd from samples**, not population
+-   return `(test statistic, p-value)`
+
+```{python}
+#| echo: true
+ztest(samp9, value=0.25) #z value with sample sd
+```
+
+```{python}
+#| echo: true
+(st.mean(samp9)-0.25)/(st.stdev(samp9)/math.sqrt(9)) # z value
+```
+
+-   P\>0.05, fail to reject H0, there is no evidence that average batting rate is not 0.25
+
+## Population sd vs. sample sd, large n
+
+n=30
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["bavg"]), 30) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000sd=np.std(samp1000,axis=1)
+np.mean(samp1000sd) # sample sd, average
+```
+
+## Population sd vs. sample sd, large n
+
+n=30
+
+```{python}
+#| echo: true
+sns.histplot(samp1000sd, binwidth=0.001)
+```
+
+## Population sd vs. sample sd, small n
+
+n=9
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp1000=[random.sample(list(data["bavg"]), 9) for i in range(1000)]
+samp1000=np.array(samp1000)
+samp1000sd=np.std(samp1000,axis=1)
+np.mean(samp1000sd) # sample sd, average
+```
+
+## Population sd vs. sample sd, small n
+
+n=9
+
+```{python}
+#| echo: true
+sns.histplot(samp1000sd, binwidth=0.001)
+```
+
+## Two-sided z-test, large sample
+
+population sd
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+sample sd
+
+```{python}
+#| echo: true
+samp30=random.sample(list(data["bavg"]), 30) # sampling 
+st.stdev(samp30) # sample sd
+```
+
+## Two-sided z-test, large sample
+
+-   Use the formula directly
+
+```{python}
+#| echo: true
+(st.mean(samp30)-0.25)/(data["bavg"].std()/math.sqrt(30)) # z value
+```
+
+## Two-sided z-test, large sample
+
+-   `ztest(data=your data,value=the value you want to compare with)` from `statsmodels.stats.weightstats`, but this function use **sd from samples**, not population
+-   return `(test statistic, p-value)`
+
+```{python}
+#| echo: true
+ztest(samp30, value=0.25) #z value with sample sd
+```
+
+-   P\<0.05, reject H0, there is evidence that average batting rate is not 0.25
+
+## One-sided
+
+-   `ztest(data=your data,value=the value you want to compare with,alternative=side)` from `statsmodels.stats.weightstats`
+-   `alternative="smaller"` or `alternative="larger"`
+-   assume that `data['bavg']` are the samples you want to test
+
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25)
+```
+
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25, alternative="larger")
+```
+
+```{python}
+#| echo: true
+ztest(data['bavg'], value=0.25, alternative="smaller")
+```
+
+# t-test
+
+## When to use z-test vs. t-test?
+
+-   Target parameter: mean
+
+**t-test**:
+
+-   Sample size \<30
+-   Population fit **normal distribution**
+-   Population sd **unknown**
+
+**z-test**:
+
+-   Sample size \>=30 and Population can be **any distribution**
+-   Sample size \<30 and Population fit **normal distribution** and Population sd **known**
+
+## When to use z-test vs. t-test?
+
+![](fig/TestMap.png)
+
+## Check the data
+
+```{python}
+#| echo: true
+sns.histplot(data=data, x="bavg", binwidth=0.01)
+```
+
+Normally distributed?
+
+## Shapiro-Wilk Test
+
+With **scipy** package's `stats`, the following functions can be used:
+
+-   Shapiro-Wilk Test `shapiro(data)`
+    -   May not be accurate for N \> 5000
+    -   If the p-value \> .05, then the data is assumed to be normally distributed.
+
+```{python}
+#| echo: true
+stats.shapiro(data["bavg"])
+```
+
+-   p-value \> .05, average batting rate is normally distributed.
+
+## Two-sided t-test, small sample
+
+-   H0: The average batting rate = 0.25
+-   H1: The average batting rate != 0.25
+-   Sample size = 9 (**small sample**)
+-   pretend that we don't know population sd
+
+```{python}
+#| echo: true
+data["bavg"].std() # population sd
+```
+
+```{python}
+#| echo: true
+samp9=random.sample(list(data["bavg"]), 9) # sampling 
+st.stdev(samp9) # sample sd
+```
+
+## Two-sided t-test, small sample
+
+-   `ttest_1samp(data=your data,popmean=the value you want to compare with)` from `scipy.stats`
+-   return `(test statistic, p-value, degree of freedom)`
+
+```{python}
+#| echo: true
+stats.ttest_1samp(samp9, popmean=0.25) #t value with sample sd
+```
+
+-   P\>0.05, fail to reject H0, there is no evidence that average batting rate is not 0.25
+-   P\<0.05, reject H0, there is evidence that average batting rate is not 0.25
+
+## Two-sided t-test vs. z-test
+
+```{python}
+#| echo: true
+ztest(samp9, value=0.25) #z value with sample sd
+```
+
+```{python}
+#| echo: true
+stats.ttest_1samp(samp9, popmean=0.25) #t value with sample sd
+```
+
+## One-sided t-test
+
+-   `ttest_1samp(data=your data,popmean=the value you want to compare with,alternative="side")` from `scipy.stats`
+-   `alternative="less"` or `alternative="greater"`
+
+```{python}
+#| echo: true
+st.mean(samp9)
+```
+
+```{python}
+#| echo: true
+stats.ttest_1samp(samp9, popmean=0.25) 
+```
+
+```{python}
+#| echo: true
+stats.ttest_1samp(samp9, popmean=0.25, alternative="greater") 
+```
+
+```{python}
+#| echo: true
+stats.ttest_1samp(samp9, popmean=0.25, alternative="less")
+```
+
+# Inference on the Variance - Chi-square distribution
+
+## Criteria for using chi-square distribution to infer variance
+
+-   Target parameter: **variance**
+-   Sample size large or small
+-   Population is **normal distribution**
+
+![](fig/chi2.png)
+
+## Chi-square distribution - probability
+- No single-step function
+- Calculate chi-square statistic first
+- Then use `stats.chi2.ppf(alpha / 2, df)` from `scipy` to get critical value
+
+```{python}
+#| echo: true
+alpha=0.05
+df=10
+stats.chi2.ppf(alpha / 2, df)
+```
+```{python}
+#| echo: true
+stats.chi2.ppf(1 - alpha / 2, df)
+```
+
+## Hypothesis testing on variance
+
+**Example 4-6.3**
+
+Is the variation in boxes of cereal, measured by the variance, equal to **15 grams**? A random sample of **25 boxes** had a **standard deviation of 17.7 grams**. Test at the .05 level of significance. ![](fig/chi2.png)
+
+-   H0: variance = 15
+-   H1: variance != 15
+
+```{python}
+#| echo: true
+chi=(25-1)*((17.7)**2)/(15**2)
+chi
+```
+
+## Hypothesis testing on variance
+
+**Example 4-6.3**
+
+```{python}
+#| echo: true
+stats.chi2.ppf(0.05/2, 25-1)
+```
+
+```{python}
+#| echo: true
+stats.chi2.ppf(1-0.05/2, 25-1)
+```
+
+chi=33.4 is within 12.4\~39.4. Fail to reject H0. There is no evidence that variance is not 15
+
+## Confidence interval on variance inference
+
+**Example 4-6.2**
+
+![](fig/chi2ci.png)
+
+```{python}
+#| echo: true
+n=10 # sample size
+s2=16 # sample variance
+alpha=0.05 
+df=n-1
+upper = (n - 1) * s2 / stats.chi2.ppf(alpha / 2, df)
+lower = (n - 1) * s2 / stats.chi2.ppf(1 - alpha / 2, df)
+(lower,upper)
+```
+
+
+# Inference on Popuation Proportion - z-test
+
+## Criteria for using z-test to popuation proportion
+
+-   sample size `n` is large
+-   `np`\>=15 **and** `nq`\>=15
+
+![](fig/proportion.png)
+
+## Check the data
+```{python}
+#| echo: true
+samp40=random.sample(list(data["handedness"]), 40) # sampling 
+samp40
+```
+
+## Check the data
+Left-hander
+
+```{python}
+#| echo: true
+samp40.count('Left')
+```
+
+Proportion:
+
+```{python}
+#| echo: true
+p=samp40.count('Left')/len(samp40)
+p
+```
+
+Check np and nq
+```{python}
+#| echo: true
+p*len(samp40)
+```
+```{python}
+#| echo: true
+(1-p)*len(samp40)
+```
+## Confidence interval on popuation proportion
+
+-   `proportion_confint(count, n, alpha)` function from `statsmodels.stats.proportion`
+-   return `(ci_low, ci_upp)`
+
+```{python}
+#| echo: true
+from statsmodels.stats.proportion import proportion_confint
+```
+
+```{python}
+#| echo: true
+proportion_confint(samp40.count('Left'),len(samp40), alpha=0.05)
+```
+
+## Confidence interval on popuation proportion
+
+**Example 4-14 (4-7.3)**
+
+-   85 automobile
+-   10 have a surface finish rougher than allowed
+
+```{python}
+#| echo: true
+proportion_confint(10,85, alpha=0.05)
+```
+
+## Hypothesis testing on popuation proportion
+```{python}
+#| echo: true
+from statsmodels.stats.proportion import proportions_ztest
+```
+
+-   `proportions_ztest(count, nobs, value=set proportion,prop_var=set proportion)` from `statsmodels.stats.proportion`
+-   return `(test statistic, p value)`
+
+- H0: % of left-hander = 0.3
+- H1: % of left-hander != 0.3
+```{python}
+#| echo: true
+proportions_ztest(samp40.count('Left'),len(samp40),0.3,prop_var=0.3)
+```
+-   P\>0.05, fail to reject H0, there is no evidence that % of left-hander is not 0.3
+
+
+## Hypothesis testing on popuation proportion
+
+-   `proportions_ztest(count, nobs, value=set proportion,prop_var=set proportion)` from `statsmodels.stats.proportion`
+-   return `(test statistic, p value)`
+
+-   H0: % of left-hander = 0.1
+-   H1: % of left-hander != 0.1
+```{python}
+#| echo: true
+proportions_ztest(samp40.count('Left'),len(samp40),0.1,prop_var=0.1)
+```
+-   P\<0.05, reject H0, there is evidence that % of left-hander is not 0.1
+
+## Hypothesis testing on popuation proportion
+
+**Example 4-12 (4-7.1)** Random sample of 200, 4 of them are defective. Fraction defective not exceed 0.05. 
+
+- H0: p\>=0.05 
+- H1: p\<0.05
+
+```{python}
+#| echo: true
+5/200 # proportion from sampling
+```
+One-sided test
+```{python}
+#| echo: true
+proportions_ztest(4,200,0.05,alternative="smaller",prop_var=0.05)
+```
+-   P\<0.05, reject H0, there is evidence that fraction defective not exceed 0.05
+
+# Goodness-of-fit test
+
+## Unknown distribution?
+
+- Compare data to a distribution family
+- Chi-square distribution
+
+![](fig/goodness.png)
+
+## Goodness-of-fit test
+
+**Example 4-10**
+
+`stats.chisquare(f_obs=observed, f_exp=expected, ddof=df)` from `scipy`
+```{python}
+#| echo: true
+observed=[32, 15, 13]
+expected=[28.32, 21.24, 10.44]
+stats.chisquare(f_obs=observed, f_exp=expected, ddof=1)
+```
+
+# Summary
+## Summary -1
+Hypothesis test for single sample
+
+- z-test for population mean
+  - `ztest(data=your data,value=the value you want to compare with)` from `statsmodels.stats.weightstats`
+- t-test for population mean
+  - `ttest_1samp(data=your data,popmean=the value you want to compare with)` from `scipy.stats`
+  
+## Summary -2
+Hypothesis test for single sample
+
+- chi-square distribution for population variance
+  - no easy to use function
+  - `stats.chi2.ppf(alpha / 2, df)` from `scipy`
+- z-test for population proportion
+  - `proportions_ztest(count, nobs, value=set proportion,prop_var=set proportion)` from `statsmodels.stats.proportion`

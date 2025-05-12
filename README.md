@@ -5,9 +5,8 @@ Ch2. [Descriptive analysis](https://yijutseng.github.io/StatwithPython/Descripti
 
 Ch3. [Random Variable](https://yijutseng.github.io/StatwithPython/RandomVariable.html)
 
-Ch4. [Decision Making for a Single Sample](https://yijutseng.github.io/StatwithPython/DecisionMaking.html)
+Ch4+5. [Decision Making for a Single Sample](https://yijutseng.github.io/StatwithPython/DecisionMaking.html)
 
-Ch5. [Decision Making for Two Samples](https://yijutseng.github.io/StatwithPython/DecisionMaking2.html)
 
 ## Codes
 
